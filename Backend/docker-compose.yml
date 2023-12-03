@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+  innova-postgres:
+    image: postgres
+    container_name: innova-postgres
+    restart: always
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - pgdata:/data/postgres
+    networks:
+      - innova-network
+
+  innova-postgres-test:
+    image: postgres
+    container_name: innova-postgres-test
+    restart: unless-stopped
+    ports:
+      - ${POSTGRES_PORT_TEST}:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_TEST}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS_TEST}
+      - POSTGRES_DB=${POSTGRES_DB_TEST}
+    volumes:
+      - pgdata:/data/postgres/test
+    networks:
+      - innova-network
+
+  innova-api:
+    build: .
+    container_name: innova-api
+    environment:
+      - POSTGRES_HOST=innova-postgres
+    restart: always
+    ports:
+      - 3003:3003
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    networks:
+      - innova-network
+    depends_on:
+      - innova-postgres
+
+networks:
+  innova-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+    driver: local
