@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateGyms1701587340787 implements MigrationInterface {
+export class CreateGyms1701596661793 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -18,6 +18,7 @@ export class CreateGyms1701587340787 implements MigrationInterface {
           {
             name: "description",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "phone",
@@ -25,15 +26,11 @@ export class CreateGyms1701587340787 implements MigrationInterface {
           },
           {
             name: "latitude",
-            type: "decimal",
-            scale: 10,
-            precision: 2,
+            type: "double precision",
           },
           {
             name: "longitude",
-            type: "decimal",
-            scale: 10,
-            precision: 2,
+            type: "double precision",
           },
           {
             name: "created_at",
