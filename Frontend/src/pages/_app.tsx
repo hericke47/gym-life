@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
         <ThemeProvider theme={defaultTheme}>
           <Head>
             <title>Innova</title>
-            <link rel="icon" href="https://yt3.ggpht.com/bH_KFz1xsrTsE5OoynMrakGwVq3eO61BdJ1SIMqygc4Be4NtEHj8MMcU2A13HFTFOLpC8bZRBFc=s88-c-k-c0x00ffffff-no-rj"/>
+            <link rel="icon" href="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI"/>
           </Head>
           <Component {...pageProps} />
 
