@@ -2,10 +2,13 @@ import { celebrate, Segments, Joi } from "celebrate";
 import { Router } from "express";
 
 import { CreateUserController } from "@modules/users/useCases/CreateUser/CreateUserController";
+import { ShowProfileController } from "@modules/users/useCases/ShowProfile/ShowProfileController";
+import { ensureUserAuthenticated } from "../middlewares/ensureUserAuthenticated";
 
 const usersRouter = Router();
 
 const createUserController = new CreateUserController();
+const showProfileController = new ShowProfileController();
 
 usersRouter.post(
   "/",
@@ -17,6 +20,12 @@ usersRouter.post(
     },
   }),
   createUserController.handle
+);
+
+usersRouter.get(
+  "/profile",
+  ensureUserAuthenticated,
+  showProfileController.handle
 );
 
 export default usersRouter;
