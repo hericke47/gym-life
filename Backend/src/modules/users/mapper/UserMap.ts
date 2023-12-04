@@ -8,16 +8,16 @@ class UserMap {
     email,
     name,
     active,
-    created_at,
-    is_admin,
+    createdAt,
+    isAdmin,
   }: User): IUserResponseDTO {
     const user = {
       id,
       email,
       name,
       active,
-      created_at,
-      is_admin,
+      createdAt,
+      isAdmin,
     };
 
     return user;

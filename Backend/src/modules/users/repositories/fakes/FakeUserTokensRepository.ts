@@ -16,9 +16,9 @@ class FakeUserTokensRepository implements IUserTokensRepository {
 
     Object.assign(userToken, {
       id: uuidV4(),
-      user_id: userId,
-      expires_date: expiresDate,
-      refresh_token: refreshToken,
+      userId,
+      expiresDate,
+      refreshToken,
     });
 
     this.userTokens.push(userToken);
@@ -32,7 +32,7 @@ class FakeUserTokensRepository implements IUserTokensRepository {
   ): Promise<UserTokens | undefined> {
     const userTokens = this.userTokens.find(
       (userToken) =>
-        userToken.user_id === userId && userToken.refresh_token === refreshToken
+        userToken.userId === userId && userToken.refreshToken === refreshToken
     );
 
     return userTokens;

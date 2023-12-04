@@ -14,21 +14,21 @@ class UserTokens {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar" })
-  refresh_token: string;
+  @Column({ type: "varchar", name: "refresh_token" })
+  refreshToken: string;
 
-  @Column({ type: "uuid" })
-  user_id: string;
+  @Column({ type: "uuid", name: "user_id" })
+  userId: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: "user_id" })
   user: User;
 
-  @Column({ type: "timestamp" })
-  expires_date: Date;
+  @Column({ type: "timestamp", name: "expires_date" })
+  expiresDate: Date;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
 
   constructor() {
     if (!this.id) {

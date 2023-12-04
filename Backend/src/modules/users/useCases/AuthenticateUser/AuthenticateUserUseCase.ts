@@ -16,6 +16,8 @@ interface IResponse {
   user: {
     name: string;
     email: string;
+    isAdmin: boolean;
+    active: boolean;
   };
   token: string;
   refreshToken: string;
@@ -85,6 +87,8 @@ class AuthenticateUserUseCase {
       user: {
         name: user.name,
         email: user.email,
+        isAdmin: user.isAdmin,
+        active: user.active,
       },
       token,
       refreshToken,

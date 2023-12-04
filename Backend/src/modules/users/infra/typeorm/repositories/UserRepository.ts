@@ -17,7 +17,7 @@ class UserRepository implements IUserRepository {
     return this.ormRepository.save({
       ...user,
       active: true,
-      is_admin: false,
+      isAdmin: false,
     });
   }
 

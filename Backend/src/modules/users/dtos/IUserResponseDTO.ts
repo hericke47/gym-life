@@ -3,6 +3,6 @@ export default interface IUserResponseDTO {
   name: string;
   email: string;
   active: boolean;
-  is_admin: boolean;
-  created_at: Date;
+  isAdmin: boolean;
+  createdAt: Date;
 }

@@ -17,9 +17,9 @@ class UserTokensRepository implements IUserTokensRepository {
     userId,
   }: ICreateUserTokenDTO): Promise<UserTokens> {
     const userToken = this.ormRepository.create({
-      expires_date: expiresDate,
-      refresh_token: refreshToken,
-      user_id: userId,
+      expiresDate,
+      refreshToken,
+      userId,
     });
 
     return this.ormRepository.save(userToken);
@@ -30,8 +30,8 @@ class UserTokensRepository implements IUserTokensRepository {
     refreshToken: string
   ): Promise<UserTokens | undefined> {
     const userTokens = await this.ormRepository.findOne({
-      user_id: userId,
-      refresh_token: refreshToken,
+      userId,
+      refreshToken,
     });
 
     return userTokens;

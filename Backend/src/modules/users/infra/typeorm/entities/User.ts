@@ -21,17 +21,17 @@ class User {
   @Column({ length: 200, type: "varchar" })
   password: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: "created_at" })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: "updated_at" })
+  updatedAt: Date;
 
   @Column({ type: "boolean" })
   active: boolean;
 
-  @Column({ type: "boolean" })
-  is_admin: boolean;
+  @Column({ type: "boolean", name: "is_admin" })
+  isAdmin: boolean;
 
   constructor() {
     if (!this.id) {
