@@ -13,6 +13,8 @@ export const AppSidebar = styled.div`
 
   img {
     width: 48px;
+    border-radius: 16px;
+    cursor: pointer;
   }
 
   a, button {
@@ -37,3 +39,14 @@ export const AppSidebar = styled.div`
     background: #F17062;
   }
 `;
+
+export const Options = styled.section`
+
+`
+
+export const ContainerOptions = styled.div`
+  img {
+    margin-bottom: 24px;
+  }
+
+`

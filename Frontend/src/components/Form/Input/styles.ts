@@ -33,6 +33,15 @@ export const Container = styled.div`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  input[type="number"] {
+      -moz-appearance: textfield;
+  }
+
   svg {
     margin-right: 16px;
   }

@@ -1,12 +1,11 @@
-import { FormEvent, useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import { Input } from "../components/Form/Input";
 import Button from "../components/Form/Button";
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Router from "next/dist/client/router";
 
 import { AuthContext } from "../contexts/AuthContext";
 import Link from 'next/link'
-import { useRouter } from "next/dist/client/router";
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Container,
@@ -68,14 +67,16 @@ export default function Login() {
             na plataforma</h1>
 
             <Input
+              required
+              register={register}
               name="email"
               type="email"
-              {...register('email')}
               placeholder="E-Mail"
             />
 
             <Input
-              {...register('password')}
+              required
+              register={register}
               name="password"
               type="password"
               placeholder="Senha"
