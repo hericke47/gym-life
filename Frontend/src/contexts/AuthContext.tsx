@@ -6,7 +6,8 @@ import { api } from "../services/apiClient";
 type User = {
   name: string;
   email: string;
-  role: string;
+  active: boolean;
+  isAdmin: boolean;
 }
 
 type SignInCredentials = {
@@ -41,16 +42,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() =>{
     const { 'innova.token': token } = parseCookies();
 
-    // if(token) {
-    //     api.get('/profile').then( response => {
-    //         const { email, name } = response.data;
+    if(token) {
+        api.get('/users/profile').then( response => {
+            const { email, name, active, isAdmin } = response.data;
 
-    //         setUser({ email, name })
-    //     })
-    //     .catch(() => {
-    //       signOut()
-    //     })
-    // };
+            setUser({ email, name, active, isAdmin })
+        })
+        .catch(() => {
+          signOut()
+        })
+    };
 
   },[])
 
@@ -60,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password
     })
 
-    const { role, token, refreshToken, user: {name} } = response.data;
+    const { token, refreshToken, user: { name, isAdmin, active } } = response.data;
 
     setCookie(undefined, 'innova.token', token, {
       maxAge: 60 * 60 * 24 * 30,
@@ -75,8 +76,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     setUser({
       email,
-      role,
-      name
+      name,
+      isAdmin,
+      active
     })
   }
 

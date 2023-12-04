@@ -38,7 +38,7 @@ export function setupAPIClient(ctx = undefined) {
               path: '/'
             })
 
-            setCookie(ctx, 'innova.refresh_token', response.data.refresh_token, {
+            setCookie(ctx, 'innova.refresh_token', response.data.refreshToken, {
               maxAge: 60 * 60 * 24 * 30,
               path: '/'
             })
