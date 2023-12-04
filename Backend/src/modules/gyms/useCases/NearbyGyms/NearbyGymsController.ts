@@ -8,11 +8,11 @@ export class NearbyGymsController {
 
     const nearbyGyms = container.resolve(NearbyGymsUseCase);
 
-    const gym = await nearbyGyms.execute({
+    const gyms = await nearbyGyms.execute({
       latitude: Number(latitude),
       longitude: Number(longitude),
     });
 
-    return response.status(200).json(gym);
+    return response.status(200).json(gyms);
   }
 }

@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 
 import IGymRepository from "@modules/gyms/repositories/models/IGymRepository";
 import ICreateGymDTO from "@modules/gyms/dtos/ICreateGymDTO";
@@ -10,6 +10,7 @@ class GymRepository implements IGymRepository {
   constructor() {
     this.ormRepository = getRepository(Gym);
   }
+
   public async nearbyGyms(latitude: number, longitude: number): Promise<Gym[]> {
     // 6371 = Raio médio da terra
     return this.ormRepository.query(`
@@ -28,6 +29,28 @@ class GymRepository implements IGymRepository {
             COS(RADIANS(${longitude} - longitude))
         ) <= 10;
     `);
+  }
+
+  public async searchGymsByName(
+    name: string,
+    skip: number,
+    take: number
+  ): Promise<{
+    gyms: Gym[];
+    count: number;
+  }> {
+    const gyms = await this.ormRepository.findAndCount({
+      where: {
+        name: Like(`%${name}%`),
+      },
+      skip,
+      take,
+    });
+
+    return {
+      gyms: gyms[0],
+      count: gyms[1],
+    };
   }
 
   public async create(data: ICreateGymDTO): Promise<Gym> {
