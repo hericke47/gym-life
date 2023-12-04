@@ -1,0 +1,36 @@
+{
+  "name": "omnilabs-education-web-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@ramonak/react-progress-bar": "5.0.1",
+    "axios": "0.21.1",
+    "next": "12",
+    "next-images": "1.8.1",
+    "nookies": "2.5.2",
+    "polished": "4.1.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "7.12.2",
+    "react-icons": "4.2.0",
+    "react-loading": "2.0.3",
+    "react-switch": "7.0.0",
+    "react-toastify": "7.0.4",
+    "react-use-websocket": "4.2.0",
+    "styled-components": "5.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "16.4.7",
+    "@types/react": "17.0.15",
+    "@types/styled-components": "5.1.11",
+    "eslint": "7.31.0",
+    "eslint-config-next": "11.0.1",
+    "typescript": "4.3.5"
+  }
+}
