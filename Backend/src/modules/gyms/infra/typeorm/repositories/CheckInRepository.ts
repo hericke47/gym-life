@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Raw, Repository } from "typeorm";
 
 import ICheckInRepository from "@modules/gyms/repositories/models/ICheckInRepository";
 import ICreateCheckInDTO from "@modules/gyms/dtos/ICreateCheckInDTO";
@@ -18,6 +18,30 @@ class CheckInRepository implements ICheckInRepository {
       ...gym,
       approved: false,
     });
+  }
+
+  public async findByUserId(
+    userId: string,
+    onlyToday?: boolean
+  ): Promise<CheckIn[]> {
+    const where = {
+      userId,
+    };
+
+    if (onlyToday) {
+      Object.assign(where, {
+        createdAt: Raw(
+          (alias) =>
+            `${alias} >= CURRENT_DATE AND ${alias} < CURRENT_DATE + INTERVAL '1 day'`
+        ),
+      });
+    }
+
+    const checIns = await this.ormRepository.find({
+      where,
+    });
+
+    return checIns;
   }
 }
 
