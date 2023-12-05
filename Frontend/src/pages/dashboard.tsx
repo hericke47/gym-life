@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SideBar from "../components/Sidebar/SideBar";
-import { Card, Container } from "../styles/pages/dashboard";
+import { Card, Container, NotFoundGyms } from "../styles/pages/dashboard";
 import { whithSSRAuth } from "../utils/whithSSRAuth";
 import { api } from "../services/apiClient";
 import axios from "axios";
@@ -64,7 +64,7 @@ export default function Login() {
         <h1>Academias próximas</h1>
 
         <div className="gymCardsContainer">
-          {nearbyGyms.length >= 1 && nearbyGyms.map(gym => (
+          {nearbyGyms.length > 1 && nearbyGyms.map(gym => (
             <GymCard
               gym={gym}
               userLatitude={userLatitude}
@@ -72,6 +72,12 @@ export default function Login() {
             />
           ))}
         </div>
+
+        {nearbyGyms.length <= 0 && (
+          <NotFoundGyms>
+            <h2>Nenhuma academia próxima encontrada</h2>
+          </NotFoundGyms>
+        )}
       </Card>
       <ToastContainer />
     </Container>

@@ -42,3 +42,15 @@ export const Card = styled.div`
     }
   }
 `
+
+export const NotFoundGyms = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-weight: 500;
+    text-align: center;
+    color: #6f7284;
+  }
+`
