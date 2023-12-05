@@ -67,21 +67,25 @@ export default function CriarConta() {
             <Input
               name="name"
               placeholder="Nome"
-              {...register('name')}
+              required
+              type="text"
+              register={register}
             />
 
             <Input
               name="email"
               type="email"
               placeholder="E-Mail"
-              {...register('email')}
+              register={register}
+              required
             />
 
             <Input
               name="password"
               type="password"
               placeholder="Senha"
-              {...register('password')}
+              register={register}
+              required
             />
 
             <Button type="submit" loading={formState.isSubmitting}>Cadastrar</Button>

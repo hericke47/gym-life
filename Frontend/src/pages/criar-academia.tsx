@@ -6,13 +6,13 @@ import { Input } from "../components/Form/Input";
 import { toast, ToastContainer } from 'react-toastify';
 import { api } from "../services/apiClient";
 import Button from "../components/Form/Button";
+import axios from "axios";
 
 interface CreateGymFormData {
   name: string;
   description: string;
   phone: string;
-  latitude: number;
-  longitude: number;
+  address: string;
 }
 
 export default function CreateGym() {
@@ -20,26 +20,41 @@ export default function CreateGym() {
 
   async function handleCreateGym(data: CreateGymFormData) {
     try {
-      await api.post('/gyms', {
-        name: data.name,
-        description: data.description,
-        phone: data.phone,
-        latitude: data.latitude,
-        longitude: data.longitude
+      axios.get(`https://geocode.maps.co/search?q=${data.address}`).then(async response => {
+        if(response.data[0]) {
+          await api.post('/gyms', {
+            name: data.name,
+            description: data.description,
+            phone: data.phone,
+            latitude: response.data[0].lat,
+            longitude: response.data[0].lon
+          })
+
+          toast('Academia criada com sucesso', {
+            position: "top-right",
+            type: 'success',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+          reset()
+        }
+
+        toast('Endereço não encontrado', {
+          position: "top-right",
+          type: 'error',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
-
-      toast('Academia criada com sucesso', {
-        position: "top-right",
-        type: 'success',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
-      reset()
     } catch(err) {
       toast('Erro ao fazer cadastro de academia', {
         position: "top-right",
@@ -55,12 +70,6 @@ export default function CreateGym() {
       reset()
     }
   }
-
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition(location => {
-  //     console.log(location.coords)
-  //   })
-  // }, [])
 
   return (
     <Container>
@@ -97,22 +106,15 @@ export default function CreateGym() {
 
           <fieldset>
             <legend>Localização</legend>
-            {/* Aqui eu usaria a api do google com o pacote "react-geocode" para fazer geocode para buscar pelo endereço a latitude e longitude, mas por gerar uma chave e ter custo envolvido irei usar apenas inputs */}
+
             <Input
-              name="latitude"
-              placeholder="Latitude"
-              type="number"
+              name="address"
+              placeholder="Endereço"
+              type="text"
               required
               register={register}
             />
 
-            <Input
-              name="longitude"
-              type="number"
-              required
-              placeholder="Longitude"
-              register={register}
-            />
           </fieldset>
           <Button type="submit" loading={isSubmitting}>Cadastrar</Button>
         </form>

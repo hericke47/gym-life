@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { GiWeightLiftingUp } from 'react-icons/gi';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiLogOut } from 'react-icons/fi';
 
 import { useRouter } from 'next/router';
 import { AppSidebar, ContainerOptions, Options } from './styles';
 import Link from 'next/link';
 import { AuthContext } from '../../contexts/AuthContext';
+import gympassPNG from '../../public/assets/gympass.png'
 
 export default function SideBar() {
   const router = useRouter();
-  const { user } = useContext(AuthContext)
+  const { user, signOut } = useContext(AuthContext)
 
   return (
     <AppSidebar>
@@ -29,8 +30,8 @@ export default function SideBar() {
       </ContainerOptions>
 
       <footer>
-        <button type="button" onClick={router.back}>
-          <FiArrowLeft size={24} color="#FFF" />
+        <button type="button" onClick={signOut}>
+          <FiLogOut size={24} color="#FFF" />
         </button>
       </footer>
     </AppSidebar>

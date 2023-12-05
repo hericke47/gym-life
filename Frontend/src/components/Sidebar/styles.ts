@@ -38,10 +38,27 @@ export const AppSidebar = styled.div`
   button:hover {
     background: #F17062;
   }
+
+  @media only screen and (max-device-width: 1200px) {
+    width: 100%;
+    top: 0;
+    height: auto;
+    flex-direction: row;
+    padding: 24px 12px;
+
+    a, button {
+      flex-direction: row;
+    }
+  }
 `;
 
 export const Options = styled.section`
-
+  @media only screen and (max-device-width: 1200px) {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+  }
 `
 
 export const ContainerOptions = styled.div`
@@ -49,4 +66,15 @@ export const ContainerOptions = styled.div`
     margin-bottom: 24px;
   }
 
+  @media only screen and (max-device-width: 1200px) {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    img {
+      margin-bottom: 0;
+      margin-right: 24px;
+    }
+  }
 `
