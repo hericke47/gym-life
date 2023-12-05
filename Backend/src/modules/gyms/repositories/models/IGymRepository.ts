@@ -12,4 +12,5 @@ export default interface IGymRepository {
     gyms: Gym[];
     count: number;
   }>;
+  findById(gymId: string): Promise<Gym | undefined>;
 }

@@ -8,6 +8,8 @@ import IUserTokensRepository from "@modules/users/repositories/models/IUserToken
 import UserTokensRepository from "@modules/users/infra/typeorm/repositories/UserTokensRepository";
 import IGymRepository from "@modules/gyms/repositories/models/IGymRepository";
 import GymRepository from "@modules/gyms/infra/typeorm/repositories/GymRepository";
+import CheckInRepository from "@modules/gyms/infra/typeorm/repositories/CheckInRepository";
+import ICheckInRepository from "@modules/gyms/repositories/models/ICheckInRepository";
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
 
@@ -17,3 +19,8 @@ container.registerSingleton<IUserTokensRepository>(
 );
 
 container.registerSingleton<IGymRepository>("GymRepository", GymRepository);
+
+container.registerSingleton<ICheckInRepository>(
+  "CheckInRepository",
+  CheckInRepository
+);

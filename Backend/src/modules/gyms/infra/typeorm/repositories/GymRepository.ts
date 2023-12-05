@@ -15,6 +15,7 @@ class GymRepository implements IGymRepository {
     // 6371 = Raio médio da terra
     return this.ormRepository.query(`
       SELECT
+        id,
         name,
         description,
         phone,
@@ -27,7 +28,9 @@ class GymRepository implements IGymRepository {
             SIN(RADIANS(${latitude})) * SIN(RADIANS(latitude)) +
             COS(RADIANS(${latitude})) * COS(RADIANS(latitude)) *
             COS(RADIANS(${longitude} - longitude))
-        ) <= 10;
+        ) <= 10
+      AND
+          gyms.active = true
     `);
   }
 
@@ -42,6 +45,7 @@ class GymRepository implements IGymRepository {
     const gyms = await this.ormRepository.findAndCount({
       where: {
         name: Like(`%${name}%`),
+        active: true,
       },
       skip,
       take,
@@ -60,6 +64,14 @@ class GymRepository implements IGymRepository {
       ...gym,
       active: true,
     });
+  }
+
+  public async findById(gymId: string): Promise<Gym | undefined> {
+    const gym = await this.ormRepository.findOne({
+      where: { id: gymId, active: true },
+    });
+
+    return gym;
   }
 }
 
