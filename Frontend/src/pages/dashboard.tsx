@@ -6,6 +6,7 @@ import { api } from "../services/apiClient";
 import axios from "axios";
 import GymCard from "../components/GymCard";
 import { calculateDistance } from "../utils/calculateDistance";
+import { ToastContainer } from "react-toastify";
 
 
 export interface IGym {
@@ -28,10 +29,13 @@ export interface IGym {
 
 export default function Login() {
   const [nearbyGyms, setNearbyGyms] = useState<IGym[]>([])
+  const [userLatitude, setUserLatitude] = useState(0);
+  const [userLongitude, setUserLongitude] = useState(0);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
-      console.log(location.coords.latitude, location.coords.longitude)
+      setUserLatitude(location.coords.latitude)
+      setUserLongitude(location.coords.longitude)
       if(location.coords.latitude && location.coords.longitude) {
         api.get(`/gyms?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`).then(async response => {
           const filteredData = await Promise.all(
@@ -61,10 +65,15 @@ export default function Login() {
 
         <div className="gymCardsContainer">
           {nearbyGyms.length >= 1 && nearbyGyms.map(gym => (
-            <GymCard {...gym} />
+            <GymCard
+              gym={gym}
+              userLatitude={userLatitude}
+              userLongitude={userLongitude}
+            />
           ))}
         </div>
       </Card>
+      <ToastContainer />
     </Container>
   )
 }
