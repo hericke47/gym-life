@@ -37,11 +37,26 @@ class CheckInRepository implements ICheckInRepository {
       });
     }
 
-    const checIns = await this.ormRepository.find({
+    const checkIns = await this.ormRepository.find({
       where,
     });
 
-    return checIns;
+    return checkIns;
+  }
+
+  public async findByIntervalAndUserId(
+    userId: string,
+    interval: string
+  ): Promise<CheckIn[]> {
+    const checkIns = await this.ormRepository.query(`
+      select id, created_at from check_ins where
+        check_ins.created_at > CURRENT_TIMESTAMP - INTERVAL '${interval}' and
+        check_ins.created_at < CURRENT_TIMESTAMP and
+        check_ins.user_id = '${userId}' and
+        check_ins.approved = false
+    `);
+
+    return checkIns;
   }
 }
 
