@@ -6,8 +6,7 @@ export const swaggerConfig: SwaggerOptions = {
   info: {
     version: "0.1.0",
     title: "innova",
-    description:
-      "Documentação Api innova, com o objetivo de possibilitar o acompanhamento de agendamentos de consultas de um médico. <br><br> Feita com os padrões REST.",
+    description: "Documentação Api innova.",
   },
   components: {
     securitySchemes: {
