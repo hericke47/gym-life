@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SideBar from "../components/Sidebar/SideBar";
 import { Card, Container, NotFoundGyms } from "../styles/pages/dashboard";
-import { whithSSRAuth } from "../utils/whithSSRAuth";
+import { withSSRAuth } from "../utils/withSSRAuth";
 import { api } from "../services/apiClient";
 import axios from "axios";
 import GymCard from "../components/GymCard";
@@ -36,7 +36,7 @@ export interface ICheckIns {
   approved: boolean;
 }
 
-export default function Login() {
+export default function Dashboard() {
   const [nearbyGyms, setNearbyGyms] = useState<IGym[]>([])
   const [userLatitude, setUserLatitude] = useState(0);
   const [userLongitude, setUserLongitude] = useState(0);
@@ -44,7 +44,7 @@ export default function Login() {
   const [loading, setLoading] = useState(true)
 
   async function getUserCheckInsToday() {
-    await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data.checkIns))
+    await api.get(`/users/todayCheckIn`).then(response => setUserCheckInsToday(response.data))
   }
 
   useEffect(() => {
@@ -63,11 +63,12 @@ export default function Login() {
               return {
                 ...g,
                 address: result.address,
-                distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
+                distance: calculateDistance(g.latitude, g.longitude, userLatitude, userLongitude).toFixed(2)
               }
             })
           )
           const orderedGymsByDistance = filteredData.sort((a, b) => a.distance - b.distance)
+
 
           setNearbyGyms(orderedGymsByDistance)
           getUserCheckInsToday()
@@ -84,7 +85,6 @@ export default function Login() {
       <Card>
         <header>
           <h1>Academias próximas</h1>
-          <p>Check-ins realizados hoje: {userCheckInsToday.length}/2</p>
         </header>
 
         <div className="gymCardsContainer">
@@ -94,7 +94,8 @@ export default function Login() {
               gym={gym}
               userLatitude={userLatitude}
               userLongitude={userLongitude}
-              checkIns={userCheckInsToday.filter(checkIn => gym.id === checkIn.gymId)}
+              gymCheckIn={userCheckInsToday.find(checkIn => gym.id === checkIn.gymId)}
+              checkIns={userCheckInsToday}
               setCheckIn={setUserCheckInsToday}
             />
           ))}
@@ -116,7 +117,7 @@ export default function Login() {
 }
 
 
-export const getServerSideProps = whithSSRAuth(async ctx => {
+export const getServerSideProps = withSSRAuth(async ctx => {
   return {
     props: {}
   }

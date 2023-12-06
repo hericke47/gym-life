@@ -56,7 +56,7 @@ export default function TableListCheckInsByUser() {
       return (
         <tbody>
           <tr>
-            <Td colSpan={3}>Nenhum check-in encontrado.</Td>
+            <Td colSpan={7}>Nenhum check-in encontrado.</Td>
           </tr>
         </tbody>
       );

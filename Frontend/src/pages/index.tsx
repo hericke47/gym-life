@@ -13,7 +13,7 @@ import { Container,
   AnimationContainer,
   Background
 } from '../styles/pages/login';
-import { whithSSRGuest } from "../utils/whithSSRGuest";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 interface ILoginFormData {
   email: string;
@@ -98,7 +98,7 @@ export default function Login() {
 }
 
 
-export const getServerSideProps = whithSSRGuest(async (ctx) => {
+export const getServerSideProps = withSSRGuest(async (ctx) => {
   return {
     props: {}
   }

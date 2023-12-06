@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import SideBar from "../components/Sidebar/SideBar";
 import { Container } from "../styles/pages/criar-academia";
-import { whithSSRAuth } from "../utils/whithSSRAuth";
+import { withSSRAuth } from "../utils/withSSRAuth";
 import { Input } from "../components/Form/Input";
 import { toast, ToastContainer } from 'react-toastify';
 import { api } from "../services/apiClient";
@@ -124,8 +124,7 @@ export default function CreateGym() {
   )
 }
 
-
-export const getServerSideProps = whithSSRAuth(async ctx => {
+export const getServerSideProps = withSSRAuth(async ctx => {
   return {
     props: {}
   }

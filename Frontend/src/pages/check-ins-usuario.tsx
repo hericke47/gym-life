@@ -1,17 +1,21 @@
+import { useContext } from "react";
 import SideBar from "../components/Sidebar/SideBar";
 import TableListCheckInsByUser from "../components/TableListCheckInsByUser";
+import { AuthContext } from "../contexts/AuthContext";
 import { Card, Container } from "../styles/pages/check-ins-usuario";
-import { whithSSRAuth } from "../utils/whithSSRAuth";
+import { withSSRAuth } from "../utils/withSSRAuth";
 import { ToastContainer } from "react-toastify";
 
 export default function CheckIns() {
+  const { user } = useContext(AuthContext)
+
   return (
     <Container>
       <SideBar />
 
       <Card>
         <header>
-          <h1>Seus Check-ins</h1>
+          <h1>{user.name}</h1>
         </header>
         <TableListCheckInsByUser />
       </Card>
@@ -21,7 +25,7 @@ export default function CheckIns() {
 }
 
 
-export const getServerSideProps = whithSSRAuth(async ctx => {
+export const getServerSideProps = withSSRAuth(async ctx => {
   return {
     props: {}
   }

@@ -1,7 +1,7 @@
 import SideBar from "../components/Sidebar/SideBar";
 import TableListCheckIns from "../components/TableListCheckIns";
 import { Card, Container } from "../styles/pages/check-ins";
-import { whithSSRAuth } from "../utils/whithSSRAuth";
+import { withSSRAuth } from "../utils/withSSRAuth";
 import { ToastContainer } from "react-toastify";
 
 export default function CheckIns() {
@@ -21,7 +21,7 @@ export default function CheckIns() {
 }
 
 
-export const getServerSideProps = whithSSRAuth(async ctx => {
+export const getServerSideProps = withSSRAuth(async ctx => {
   return {
     props: {}
   }

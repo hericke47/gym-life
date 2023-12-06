@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SideBar from "../components/Sidebar/SideBar";
 import { Card, Container, NotFoundGyms } from "../styles/pages/academias";
-import { whithSSRAuth } from "../utils/whithSSRAuth";
+import { withSSRAuth } from "../utils/withSSRAuth";
 import { api } from "../services/apiClient";
 import axios from "axios";
 import GymCard from "../components/GymCard";
@@ -51,7 +51,7 @@ export default function Academias() {
   const itemsPerPage = 9;
 
   async function getUserCheckInsToday() {
-    await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data.checkIns))
+    await api.get(`/users/todayCheckIn`).then(response => setUserCheckInsToday(response.data))
   }
 
   useEffect(() => {
@@ -114,7 +114,8 @@ export default function Academias() {
               gym={gym}
               userLatitude={userLatitude}
               userLongitude={userLongitude}
-              checkIns={userCheckInsToday.filter(checkIn => gym.id === checkIn.gymId)}
+              gymCheckIn={userCheckInsToday.find(checkIn => gym.id === checkIn.gymId)}
+              checkIns={userCheckInsToday}
               setCheckIn={setUserCheckInsToday}
             />
           ))}
@@ -142,7 +143,7 @@ export default function Academias() {
 }
 
 
-export const getServerSideProps = whithSSRAuth(async ctx => {
+export const getServerSideProps = withSSRAuth(async ctx => {
   return {
     props: {}
   }

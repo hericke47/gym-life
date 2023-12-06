@@ -9,7 +9,6 @@ import { AuthContext } from '../../contexts/AuthContext';
 import gympassPNG from '../../public/assets/gympass.png'
 
 export default function SideBar() {
-  const router = useRouter();
   const { user, signOut } = useContext(AuthContext)
 
   return (
@@ -19,15 +18,15 @@ export default function SideBar() {
           <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gympass" />
         </Link>
         <Options>
-          <Link href="/check-ins-usuario">
-            <button type="button">
-                <FiUser size={24} color="#FFF" />
-            </button>
-          </Link>
-
           <Link href="/academias">
             <button type="button">
                 <FiSearch size={24} color="#FFF" />
+            </button>
+          </Link>
+
+          <Link href="/check-ins-usuario">
+            <button type="button">
+                <FiUser size={24} color="#FFF" />
             </button>
           </Link>
 

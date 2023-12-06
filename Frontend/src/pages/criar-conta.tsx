@@ -8,7 +8,7 @@ import { Input } from '../components/Form/Input';
 import { api } from '../services/apiClient';
 
 import { AnimationContainer, Container, Background, Content } from '../styles/pages/criar-conta';
-import { whithSSRGuest } from '../utils/whithSSRGuest';
+import { withSSRGuest } from '../utils/withSSRGuest';
 
 interface SignUpFormData {
   name: string;
@@ -101,7 +101,7 @@ export default function CriarConta() {
   );
 }
 
-export const getServerSideProps = whithSSRGuest(async (ctx) => {
+export const getServerSideProps = withSSRGuest(async (ctx) => {
   return {
     props: {}
   }
