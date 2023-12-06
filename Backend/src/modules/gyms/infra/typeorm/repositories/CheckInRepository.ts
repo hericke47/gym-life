@@ -52,7 +52,7 @@ class CheckInRepository implements ICheckInRepository {
         },
       },
       order: {
-        createdAt: "ASC",
+        createdAt: onlyToday ? "ASC" : "DESC",
       },
       skip: skip || 0,
       take: onlyToday ? checkInConfig.checkInLimitPerDay : take,
