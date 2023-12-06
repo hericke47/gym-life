@@ -18,7 +18,7 @@
 
   <img alt="Innova" title="#Innova" src="./.github/buscar-academias.png" width="400px">
 
-  <img alt="Innova" title="#Innova" src="./.github/cadastrar-academias.png" width="400px">
+  <img alt="Innova" title="#Innova" src="./.github/cadastrar-academia.png" width="400px">
 
   <img alt="Innova" title="#Innova" src="./.github/check-ins.png" width="400px">
 </p>
