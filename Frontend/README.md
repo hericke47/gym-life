@@ -3,15 +3,8 @@
 </h1>
 
 <h4 align="center">
-	Gympass
+	Gympass - Frontend
 </h4>
-
-## 💻 Sobre o projeto
-
-:rocket: Gympass - Solução que Oferece Acesso a Milhares de Academias.
-
-
-### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
   <img alt="Innova" title="#Innova" src="./.github/login.png" width="400px">
