@@ -18,12 +18,6 @@
 
 ---
 
-## Sobre o Projeto
-
-//
-
----
-
 ## 👨‍💻️ Tecnogias utilizadas
 
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
