@@ -5,6 +5,8 @@ import { inject, injectable } from "tsyringe";
 interface IRequest {
   onlyToday?: boolean;
   userId: string;
+  take: number;
+  skip: number;
 }
 
 @injectable()
@@ -14,10 +16,15 @@ class ListCheckInsByUserUseCase {
     private checkInRepository: ICheckInRepository
   ) {}
 
-  async execute({ userId, onlyToday }: IRequest): Promise<CheckIn[]> {
+  async execute({ userId, onlyToday, skip, take }: IRequest): Promise<{
+    checkIns: CheckIn[];
+    count: number;
+  }> {
     const checkIns = await this.checkInRepository.findByUserId(
       userId,
-      onlyToday
+      onlyToday,
+      take,
+      skip
     );
 
     return checkIns;

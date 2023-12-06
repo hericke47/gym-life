@@ -2,6 +2,7 @@ import { getRepository, Raw, Repository } from "typeorm";
 
 import ICheckInRepository from "@modules/gyms/repositories/models/ICheckInRepository";
 import ICreateCheckInDTO from "@modules/gyms/dtos/ICreateCheckInDTO";
+import checkInConfig from "@config/checkIn";
 import { CheckIn } from "../entities/CheckIn";
 
 class CheckInRepository implements ICheckInRepository {
@@ -22,8 +23,13 @@ class CheckInRepository implements ICheckInRepository {
 
   public async findByUserId(
     userId: string,
-    onlyToday?: boolean
-  ): Promise<CheckIn[]> {
+    onlyToday?: boolean,
+    take?: number,
+    skip?: number
+  ): Promise<{
+    checkIns: CheckIn[];
+    count: number;
+  }> {
     const where = {
       userId,
     };
@@ -32,16 +38,30 @@ class CheckInRepository implements ICheckInRepository {
       Object.assign(where, {
         createdAt: Raw(
           (alias) =>
-            `${alias} >= CURRENT_DATE AND ${alias} < CURRENT_DATE + INTERVAL '1 day'`
+            `${alias} >= CURRENT_DATE AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3' AND ${alias} < (CURRENT_DATE + INTERVAL '1 day') AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3'`
         ),
       });
     }
 
-    const checkIns = await this.ormRepository.find({
+    const checkIns = await this.ormRepository.findAndCount({
       where,
+      join: {
+        alias: "checkIn",
+        leftJoinAndSelect: {
+          gym: "checkIn.gym",
+        },
+      },
+      order: {
+        createdAt: "ASC",
+      },
+      skip: skip || 0,
+      take: onlyToday ? checkInConfig.checkInLimitPerDay : take,
     });
 
-    return checkIns;
+    return {
+      checkIns: checkIns[0],
+      count: checkIns[1],
+    };
   }
 
   public async findByIntervalAndUserId(

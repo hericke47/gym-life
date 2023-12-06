@@ -4,7 +4,7 @@ import { ListCheckInsByUserUseCase } from "./ListCheckInsByUserUseCase";
 
 export class ListCheckInsByUserController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    const { onlyToday } = request.query;
+    const { onlyToday, skip, take } = request.query;
 
     const userId = request.user.id;
 
@@ -13,6 +13,8 @@ export class ListCheckInsByUserController {
     const checkIns = await checkInsUseCase.execute({
       onlyToday: Boolean(onlyToday),
       userId,
+      skip: Number(skip),
+      take: Number(take),
     });
 
     return response.status(200).json(checkIns);

@@ -26,7 +26,7 @@ class CheckIn {
   @Column({ type: "uuid", name: "gym_id" })
   gymId: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => Gym)
   @JoinColumn({ name: "gym_id" })
   gym: Gym;
 

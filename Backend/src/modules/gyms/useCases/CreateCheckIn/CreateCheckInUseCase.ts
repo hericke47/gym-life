@@ -40,7 +40,7 @@ class CreateCheckInUseCase {
       true
     );
 
-    if (checkInLimit.length >= 2) {
+    if (checkInLimit.checkIns.length >= checkInConfig.checkInLimitPerDay) {
       throw new AppError("check-in limit reached");
     }
 
