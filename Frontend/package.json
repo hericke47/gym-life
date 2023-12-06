@@ -20,7 +20,9 @@
     "react-hook-form": "7.48.2",
     "react-icons": "4.2.0",
     "react-loading": "2.0.3",
+    "react-spinners": "0.13.8",
     "react-switch": "7.0.0",
+    "react-timer-hook": "3.0.7",
     "react-toastify": "7.0.4",
     "react-use-websocket": "4.2.0",
     "styled-components": "5.3.1"

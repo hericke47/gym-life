@@ -27,30 +27,49 @@ export interface IGym {
   distance: number;
 }
 
+export interface ICheckIns {
+  id: string;
+  userId: string;
+  gymId: string;
+  createdAt: string;
+  updatedAt: string;
+  approved: boolean;
+}
+
 export default function Login() {
   const [nearbyGyms, setNearbyGyms] = useState<IGym[]>([])
   const [userLatitude, setUserLatitude] = useState(0);
   const [userLongitude, setUserLongitude] = useState(0);
+  const [userCheckInsToday, setUserCheckInsToday] = useState<ICheckIns[]>([])
+
+  async function getUserCheckInsToday() {
+    await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data))
+  }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(location => {
-      setUserLatitude(location.coords.latitude)
-      setUserLongitude(location.coords.longitude)
-      if(location.coords.latitude && location.coords.longitude) {
-        api.get(`/gyms?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`).then(async response => {
+      const userLatitude = location.coords.latitude
+      const userLongitude = location.coords.longitude
+
+      setUserLatitude(userLatitude)
+      setUserLongitude(userLongitude)
+
+      if(userLatitude && userLongitude) {
+        api.get(`/gyms?latitude=${userLatitude}&longitude=${userLongitude}`).then(async response => {
           const filteredData = await Promise.all(
             response.data.map(async g => {
               const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
               return {
                 ...g,
                 address: result.address,
-                distance: calculateDistance(g.latitude, g.longitude,location.coords.latitude, location.coords.longitude).toFixed(2)
+                distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
               }
             })
           )
           const orderedGymsByDistance = filteredData.sort((a, b) => a.distance - b.distance)
 
           setNearbyGyms(orderedGymsByDistance)
+          getUserCheckInsToday()
         })
       }
     })
@@ -61,7 +80,10 @@ export default function Login() {
       <SideBar />
 
       <Card>
-        <h1>Academias próximas</h1>
+        <header>
+          <h1>Academias próximas</h1>
+          <p>Check-ins realizados hoje: {userCheckInsToday.length}/2</p>
+        </header>
 
         <div className="gymCardsContainer">
           {nearbyGyms.length > 1 && nearbyGyms.map(gym => (
@@ -69,6 +91,8 @@ export default function Login() {
               gym={gym}
               userLatitude={userLatitude}
               userLongitude={userLongitude}
+              checkIns={userCheckInsToday.filter(checkIn => gym.id === checkIn.gymId)}
+              setCheckIn={setUserCheckInsToday}
             />
           ))}
         </div>

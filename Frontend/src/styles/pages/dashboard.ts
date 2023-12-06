@@ -20,15 +20,26 @@ export const Card = styled.div`
   padding: 64px 40px;
   overflow: hidden;
 
-  h1 {
-    width: 100%;
-    font-size: 32px;
-    line-height: 34px;
-    font-weight: 700;
-
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #D3E2E5;
     margin-bottom: 40px;
     padding-bottom: 24px;
+
+    h1 {
+      width: 100%;
+      font-size: 32px;
+      line-height: 34px;
+      font-weight: 700;
+    }
+
+    p {
+      font-weight: bold;
+      color: ${({ theme }) => theme.colors.primary};
+      text-align: center;
+    }
   }
 
   .gymCardsContainer {
