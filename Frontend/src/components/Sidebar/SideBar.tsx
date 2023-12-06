@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { GiWeightLiftingUp } from 'react-icons/gi';
-import { FiArrowLeft, FiList, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiArrowLeft, FiList, FiLogOut, FiSearch, FiUser } from 'react-icons/fi';
 
 import { useRouter } from 'next/router';
 import { AppSidebar, ContainerOptions, Options } from './styles';
@@ -22,6 +22,12 @@ export default function SideBar() {
           <Link href="/check-ins-usuario">
             <button type="button">
                 <FiUser size={24} color="#FFF" />
+            </button>
+          </Link>
+
+          <Link href="/academias">
+            <button type="button">
+                <FiSearch size={24} color="#FFF" />
             </button>
           </Link>
 

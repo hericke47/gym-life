@@ -16,6 +16,7 @@ type GymCardProps = {
 }
 
 export default function GymCard({gym, userLatitude, userLongitude, checkIns, setCheckIn}: GymCardProps) {
+  console.log(gym)
   const [intervalInSeconds, setIntervalInSeconds] = useState(0);
 
   const fetchCheckInsToday = () => {
@@ -88,7 +89,7 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
       <ContentSection>
         <h3>{gym.name}</h3>
 
-        <p>{gym.address.road}, {gym.address.suburb}, {gym.address.city}, {gym.address.state}, {gym.address.postcode}</p>
+        <p>{gym.address?.road}, {gym.address?.suburb}, {gym.address?.city}, {gym.address?.state}, {gym.address?.postcode}</p>
       </ContentSection>
       <Button
         disabled={(Number(gym.distance) > 0.10 || checkIns.length >= 2 || intervalInSeconds < 0) ? true : false}
