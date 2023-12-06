@@ -35,12 +35,9 @@ class CreateCheckInUseCase {
       throw new AppError("Gym not found!");
     }
 
-    const checkInLimit = await this.checkInRepository.findByUserId(
-      userId,
-      true
-    );
+    const checkInLimit = await this.checkInRepository.findTodayByUserId(userId);
 
-    if (checkInLimit.checkIns.length >= checkInConfig.checkInLimitPerDay) {
+    if (checkInLimit.length >= 1) {
       throw new AppError("check-in limit reached");
     }
 

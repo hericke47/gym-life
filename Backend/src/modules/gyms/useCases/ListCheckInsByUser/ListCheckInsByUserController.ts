@@ -4,14 +4,13 @@ import { ListCheckInsByUserUseCase } from "./ListCheckInsByUserUseCase";
 
 export class ListCheckInsByUserController {
   public async handle(request: Request, response: Response): Promise<Response> {
-    const { onlyToday, skip, take } = request.query;
+    const { skip, take } = request.query;
 
     const userId = request.user.id;
 
     const checkInsUseCase = container.resolve(ListCheckInsByUserUseCase);
 
     const checkIns = await checkInsUseCase.execute({
-      onlyToday: Boolean(onlyToday),
       userId,
       skip: Number(skip),
       take: Number(take),

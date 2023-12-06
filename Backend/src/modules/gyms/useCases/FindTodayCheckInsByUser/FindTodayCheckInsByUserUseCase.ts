@@ -4,29 +4,20 @@ import { inject, injectable } from "tsyringe";
 
 interface IRequest {
   userId: string;
-  take: number;
-  skip: number;
 }
 
 @injectable()
-class ListCheckInsByUserUseCase {
+class FindTodayCheckInsByUserUseCase {
   constructor(
     @inject("CheckInRepository")
     private checkInRepository: ICheckInRepository
   ) {}
 
-  async execute({ userId, skip, take }: IRequest): Promise<{
-    checkIns: CheckIn[];
-    count: number;
-  }> {
-    const checkIns = await this.checkInRepository.listByUserId(
-      userId,
-      take,
-      skip
-    );
+  async execute({ userId }: IRequest): Promise<CheckIn[]> {
+    const checkIn = await this.checkInRepository.findTodayByUserId(userId);
 
-    return checkIns;
+    return checkIn;
   }
 }
 
-export { ListCheckInsByUserUseCase };
+export { FindTodayCheckInsByUserUseCase };

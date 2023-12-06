@@ -2,7 +2,6 @@ import { getRepository, Raw, Repository } from "typeorm";
 
 import ICheckInRepository from "@modules/gyms/repositories/models/ICheckInRepository";
 import ICreateCheckInDTO from "@modules/gyms/dtos/ICreateCheckInDTO";
-import checkInConfig from "@config/checkIn";
 import { CheckIn } from "../entities/CheckIn";
 
 class CheckInRepository implements ICheckInRepository {
@@ -21,30 +20,18 @@ class CheckInRepository implements ICheckInRepository {
     });
   }
 
-  public async findByUserId(
+  public async listByUserId(
     userId: string,
-    onlyToday?: boolean,
     take?: number,
     skip?: number
   ): Promise<{
     checkIns: CheckIn[];
     count: number;
   }> {
-    const where = {
-      userId,
-    };
-
-    if (onlyToday) {
-      Object.assign(where, {
-        createdAt: Raw(
-          (alias) =>
-            `${alias} >= CURRENT_DATE AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3' AND ${alias} < (CURRENT_DATE + INTERVAL '1 day') AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3'`
-        ),
-      });
-    }
-
     const checkIns = await this.ormRepository.findAndCount({
-      where,
+      where: {
+        userId,
+      },
       join: {
         alias: "checkIn",
         leftJoinAndSelect: {
@@ -52,10 +39,10 @@ class CheckInRepository implements ICheckInRepository {
         },
       },
       order: {
-        createdAt: onlyToday ? "ASC" : "DESC",
+        createdAt: "DESC",
       },
-      skip: skip || 0,
-      take: onlyToday ? checkInConfig.checkInLimitPerDay : take,
+      skip,
+      take,
     });
 
     return {
@@ -125,6 +112,23 @@ class CheckInRepository implements ICheckInRepository {
     const checkIn = await this.ormRepository.findOne({
       where: {
         id: checkInId,
+      },
+    });
+
+    return checkIn;
+  }
+
+  public async findTodayByUserId(userId: string): Promise<CheckIn[]> {
+    const checkIn = await this.ormRepository.find({
+      where: {
+        userId,
+        createdAt: Raw(
+          (alias) =>
+            `${alias} >= CURRENT_DATE AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3' AND ${alias} < (CURRENT_DATE + INTERVAL '1 day') AT TIME ZONE 'UTC' AT TIME ZONE 'GMT-3'`
+        ),
+      },
+      order: {
+        createdAt: "ASC",
       },
     });
 

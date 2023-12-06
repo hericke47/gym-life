@@ -3,15 +3,15 @@ import { CheckIn } from "@modules/gyms/infra/typeorm/entities/CheckIn";
 
 export default interface ICheckInRepository {
   create(data: ICreateCheckInDTO): Promise<CheckIn>;
-  findByUserId(
+  listByUserId(
     userId: string,
-    onlyToday?: boolean,
     take?: number,
     skip?: number
   ): Promise<{
     checkIns: CheckIn[];
     count: number;
   }>;
+  findTodayByUserId(userId: string): Promise<CheckIn[]>;
   findByIntervalAndUserId(
     interval: string,
     userId?: string,
