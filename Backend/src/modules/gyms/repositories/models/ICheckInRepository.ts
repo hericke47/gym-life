@@ -12,7 +12,11 @@ export default interface ICheckInRepository {
     checkIns: CheckIn[];
     count: number;
   }>;
-  findByIntervalAndUserId(userId: string, interval: string): Promise<CheckIn[]>;
+  findByIntervalAndUserId(
+    interval: string,
+    userId?: string,
+    checkInId?: string
+  ): Promise<CheckIn[]>;
   listCheckIns(
     take: number,
     skip: number

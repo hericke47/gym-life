@@ -57,7 +57,7 @@ gymsRouter.get(
   listCheckInsController.handle
 );
 
-gymsRouter.post(
+gymsRouter.patch(
   "/checkIn/:checkInId",
   ensureUserAuthenticated,
   ensureAdmin,

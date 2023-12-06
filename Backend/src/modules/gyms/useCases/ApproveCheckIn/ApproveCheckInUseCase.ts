@@ -5,7 +5,6 @@ import { inject, injectable } from "tsyringe";
 import checkInConfig from "@config/checkIn";
 
 interface IRequest {
-  userId: string;
   checkInId: string;
 }
 
@@ -16,7 +15,7 @@ class ApproveCheckInUseCase {
     private checkInRepository: ICheckInRepository
   ) {}
 
-  async execute({ userId, checkInId }: IRequest): Promise<CheckIn> {
+  async execute({ checkInId }: IRequest): Promise<CheckIn> {
     const checkIn = await this.checkInRepository.findById(checkInId);
 
     if (!checkIn) {
@@ -25,8 +24,9 @@ class ApproveCheckInUseCase {
 
     const checkInApproveInterval =
       await this.checkInRepository.findByIntervalAndUserId(
-        userId,
-        checkInConfig.approveInterval
+        checkInConfig.approveInterval,
+        undefined,
+        checkIn.id
       );
 
     if (checkInApproveInterval.length <= 0) {

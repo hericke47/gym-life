@@ -46,8 +46,8 @@ class CreateCheckInUseCase {
 
     const checkInApproveInterval =
       await this.checkInRepository.findByIntervalAndUserId(
-        userId,
-        checkInConfig.approveInterval
+        checkInConfig.approveInterval,
+        userId
       );
 
     if (checkInApproveInterval.length >= 1) {
