@@ -78,6 +78,31 @@ class CheckInRepository implements ICheckInRepository {
 
     return checkIns;
   }
+
+  public async listCheckIns(
+    take: number,
+    skip: number
+  ): Promise<{ checkIns: CheckIn[]; count: number }> {
+    const checkIns = await this.ormRepository.findAndCount({
+      join: {
+        alias: "checkIn",
+        leftJoinAndSelect: {
+          gym: "checkIn.gym",
+          user: "checkIn.user",
+        },
+      },
+      skip,
+      take,
+      order: {
+        createdAt: "DESC",
+      },
+    });
+
+    return {
+      checkIns: checkIns[0],
+      count: checkIns[1],
+    };
+  }
 }
 
 export default CheckInRepository;
