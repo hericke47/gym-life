@@ -53,11 +53,19 @@ export const AppSidebar = styled.div`
 `;
 
 export const Options = styled.section`
+  button + button {
+    margin-top: 12px;
+  }
+
   @media only screen and (max-device-width: 1200px) {
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: center;
+    button + button {
+      margin-left: 12px;
+      margin-top: 0;
+    }
   }
 `
 

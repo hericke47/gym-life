@@ -20,7 +20,7 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
   const [intervalInSeconds, setIntervalInSeconds] = useState(0);
 
   const fetchCheckInsToday = () => {
-    api.get(`/users/checkIns?onlyToday=true`).then(response => setCheckIn(response.data))
+    api.get(`/users/checkIns?onlyToday=true`).then(response => setCheckIn(response.data.checkIns))
 
   }
 

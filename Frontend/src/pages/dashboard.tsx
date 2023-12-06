@@ -43,7 +43,7 @@ export default function Login() {
   const [userCheckInsToday, setUserCheckInsToday] = useState<ICheckIns[]>([])
 
   async function getUserCheckInsToday() {
-    await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data))
+    await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data.checkIns))
   }
 
   useEffect(() => {
