@@ -6,6 +6,7 @@ import { NearbyGymsController } from "@modules/gyms/useCases/NearbyGyms/NearbyGy
 import { SearchGymsByNameController } from "@modules/gyms/useCases/SearchGymsByName/SearchGymsByNameController";
 import { CreateCheckInController } from "@modules/gyms/useCases/CreateCheckIn/CreateCheckInController";
 import { ListCheckInsController } from "@modules/gyms/useCases/ListCheckIns/ListCheckInsController";
+import { ApproveCheckInController } from "@modules/gyms/useCases/ApproveCheckIn/ApproveCheckInController";
 import { ensureUserAuthenticated } from "../middlewares/ensureUserAuthenticated";
 import ensureAdmin from "../middlewares/ensureAdmin";
 
@@ -16,6 +17,7 @@ const nearbyGymsController = new NearbyGymsController();
 const searchGymsByName = new SearchGymsByNameController();
 const createCheckInController = new CreateCheckInController();
 const listCheckInsController = new ListCheckInsController();
+const approveCheckInController = new ApproveCheckInController();
 
 gymsRouter.post(
   "/",
@@ -53,6 +55,13 @@ gymsRouter.get(
   ensureUserAuthenticated,
   ensureAdmin,
   listCheckInsController.handle
+);
+
+gymsRouter.post(
+  "/checkIn/:checkInId",
+  ensureUserAuthenticated,
+  ensureAdmin,
+  approveCheckInController.handle
 );
 
 export default gymsRouter;

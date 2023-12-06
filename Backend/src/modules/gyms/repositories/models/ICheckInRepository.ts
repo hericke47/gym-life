@@ -20,4 +20,6 @@ export default interface ICheckInRepository {
     checkIns: CheckIn[];
     count: number;
   }>;
+  updatedCheckInApprove(checkIn: CheckIn): Promise<CheckIn>;
+  findById(checkInId: string): Promise<CheckIn | undefined>;
 }

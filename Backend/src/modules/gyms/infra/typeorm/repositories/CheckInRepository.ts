@@ -103,6 +103,24 @@ class CheckInRepository implements ICheckInRepository {
       count: checkIns[1],
     };
   }
+
+  public async updatedCheckInApprove(checkIn: CheckIn): Promise<CheckIn> {
+    checkIn.approved = true;
+
+    await this.ormRepository.save(checkIn);
+
+    return checkIn;
+  }
+
+  public async findById(checkInId: string): Promise<CheckIn | undefined> {
+    const checkIn = await this.ormRepository.findOne({
+      where: {
+        id: checkInId,
+      },
+    });
+
+    return checkIn;
+  }
 }
 
 export default CheckInRepository;
