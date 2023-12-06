@@ -90,6 +90,7 @@ export default function Login() {
         <div className="gymCardsContainer">
           {nearbyGyms.length > 1 && nearbyGyms.map(gym => (
             <GymCard
+              key={gym.id}
               gym={gym}
               userLatitude={userLatitude}
               userLongitude={userLongitude}

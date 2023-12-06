@@ -8,8 +8,10 @@ import {
 } from './styles'
 import Pagination from '../Tables/Pagination';
 import { format } from 'date-fns';
+import { FaCheck } from 'react-icons/fa';
+import { FiX } from 'react-icons/fi';
 
-interface ICheckIns {
+interface ICheckIn {
   id: string,
   userId: string,
   gymId: string,
@@ -31,7 +33,7 @@ interface ICheckIns {
 
 export default function TableListCheckInsByUser() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [checkIns, setCheckIns] = useState<ICheckIns[]>([]);
+  const [checkIns, setCheckIns] = useState<ICheckIn[]>([]);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 20;
 
@@ -67,7 +69,7 @@ export default function TableListCheckInsByUser() {
             <Td>{item.gym.name}</Td>
             <Td>{item.gym.description}</Td>
             <Td>{item.gym.phone}</Td>
-            <Td>{item.approved ? '✓' : 'X'}</Td>
+            <Td>{item.approved ? <FaCheck /> : <FiX strokeWidth={5} />}</Td>
             <Td>{format(new Date(item.createdAt), 'dd/MM/yyyy HH:mm:ss')}</Td>
           </tr>
         ))}
@@ -84,7 +86,7 @@ export default function TableListCheckInsByUser() {
       <StyledTable>
         <thead>
           <tr>
-            <Th>Nome</Th>
+            <Th>Academia</Th>
             <Th>Descrição</Th>
             <Th>Telefone</Th>
             <Th>Aprovado</Th>

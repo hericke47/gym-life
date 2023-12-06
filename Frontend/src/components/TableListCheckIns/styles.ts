@@ -8,6 +8,12 @@ export const StyledTable = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+
+  button {
+    padding: 0;
+    margin: 0;
+    height: 38px;
+  }
 `;
 
 export const Th = styled.th`

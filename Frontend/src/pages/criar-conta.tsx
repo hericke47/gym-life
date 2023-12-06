@@ -23,7 +23,6 @@ export default function CriarConta() {
 
   async function handleCreateUser(data: SignUpFormData) {
     try {
-      console.log(data)
       await api.post('/users', {
         name: data.name,
         email: data.email,
@@ -33,15 +32,16 @@ export default function CriarConta() {
       toast('Conta criada com sucesso', {
         position: "top-right",
         type: 'success',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        onClose: () => {
+          router.push('/')
+        }
       });
-
-      router.push('/')
     } catch(err) {
       toast('Erro ao fazer cadastro de usuário', {
         position: "top-right",
