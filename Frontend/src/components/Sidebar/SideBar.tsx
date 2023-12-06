@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { GiWeightLiftingUp } from 'react-icons/gi';
-import { FiArrowLeft, FiLogOut, FiUser } from 'react-icons/fi';
+import { FiArrowLeft, FiList, FiLogOut, FiUser } from 'react-icons/fi';
 
 import { useRouter } from 'next/router';
 import { AppSidebar, ContainerOptions, Options } from './styles';
@@ -19,6 +19,20 @@ export default function SideBar() {
           <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gympass" />
         </Link>
         <Options>
+          <Link href="/check-ins-usuario">
+            <button type="button">
+                <FiUser size={24} color="#FFF" />
+            </button>
+          </Link>
+
+          {user?.isAdmin && (
+            <Link href="/check-ins">
+              <button type="button">
+                  <FiList size={24} color="#FFF" />
+              </button>
+            </Link>
+          )}
+
           {user?.isAdmin && (
             <Link href="/criar-academia">
               <button type="button">
@@ -26,12 +40,6 @@ export default function SideBar() {
               </button>
             </Link>
           )}
-
-          <Link href="/check-ins">
-            <button type="button">
-                <FiUser size={24} color="#FFF" />
-            </button>
-          </Link>
         </Options>
       </ContainerOptions>
 

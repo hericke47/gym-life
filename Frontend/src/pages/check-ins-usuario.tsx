@@ -1,6 +1,6 @@
 import SideBar from "../components/Sidebar/SideBar";
-import TableListCheckIns from "../components/TableListCheckIns";
-import { Card, Container } from "../styles/pages/check-ins";
+import TableListCheckInsByUser from "../components/TableListCheckInsByUser";
+import { Card, Container } from "../styles/pages/check-ins-usuario";
 import { whithSSRAuth } from "../utils/whithSSRAuth";
 import { ToastContainer } from "react-toastify";
 
@@ -11,9 +11,9 @@ export default function CheckIns() {
 
       <Card>
         <header>
-          <h1>Check-ins</h1>
+          <h1>Seus Check-ins</h1>
         </header>
-        <TableListCheckIns />
+        <TableListCheckInsByUser />
       </Card>
       <ToastContainer />
     </Container>

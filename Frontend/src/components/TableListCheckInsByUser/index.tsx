@@ -26,13 +26,10 @@ interface ICheckIns {
     createdAt: string,
     updatedAt: string,
     active: boolean
-  },
-  user: {
-    name: string
   }
 }
 
-export default function TableListCheckIns() {
+export default function TableListCheckInsByUser() {
   const [currentPage, setCurrentPage] = useState(1);
   const [checkIns, setCheckIns] = useState<ICheckIns[]>([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -41,7 +38,7 @@ export default function TableListCheckIns() {
   useEffect(() => {
     const fetchData = async () => {
       const skip = (currentPage - 1) * itemsPerPage;
-      const response = await api.get(`/gyms/checkIns`, {
+      const response = await api.get(`/users/checkIns`, {
         params: { skip, take: itemsPerPage },
       });
 
@@ -72,7 +69,6 @@ export default function TableListCheckIns() {
             <Td>{item.gym.phone}</Td>
             <Td>{item.approved ? '✓' : 'X'}</Td>
             <Td>{format(new Date(item.createdAt), 'dd/MM/yyyy HH:mm:ss')}</Td>
-            <Td>{item.user.name}</Td>
           </tr>
         ))}
       </tbody>
@@ -93,7 +89,6 @@ export default function TableListCheckIns() {
             <Th>Telefone</Th>
             <Th>Aprovado</Th>
             <Th>Data</Th>
-            <Th>Usuario</Th>
           </tr>
         </thead>
         {renderTable()}
