@@ -5,7 +5,6 @@ import { ICheckIns, IGym } from '../../pages/dashboard';
 import Button from '../Form/Button';
 import { api } from '../../services/apiClient';
 import { toast } from 'react-toastify';
-import { useTimer } from 'react-timer-hook';
 import CountdownTimer from '../CountDown';
 
 type GymCardProps = {
@@ -21,7 +20,6 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
 
   const fetchCheckInsToday = () => {
     api.get(`/users/checkIns?onlyToday=true`).then(response => setCheckIn(response.data.checkIns))
-
   }
 
   useEffect(() => {
@@ -41,7 +39,6 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
     if(intervalInSeconds < 0 && checkIns.length >= 1) {
       const intervalId = setInterval(fetchCheckInsToday, 60 * 1000);
 
-      // Limpar intervalo quando o componente for desmontado
       return () => clearInterval(intervalId);
     }
   }, [fetchCheckInsToday])
@@ -97,7 +94,6 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
         disabled={(Number(gym.distance) > 0.10 || checkIns.length >= 2 || intervalInSeconds < 0) ? true : false}
         onClick={() => handleCheckIn(gym.id, userLatitude, userLongitude)}
       >
-        {console.log(Number(gym.distance) > 0.10, checkIns.length >= 2, intervalInSeconds < 0)}
         {(intervalInSeconds < 0 && !checkIns[checkIns.length - 1]?.approved) ?
           <CountdownTimer initialTime={Math.abs(intervalInSeconds)} /> :
           Number(gym.distance) > 0.10 ?

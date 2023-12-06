@@ -7,10 +7,31 @@ import {
   Th
 } from './styles'
 import Pagination from '../Tables/Pagination';
+import { format } from 'date-fns';
+
+interface ICheckIns {
+  id: string,
+  userId: string,
+  gymId: string,
+  createdAt: string,
+  updatedAt: string,
+  approved: boolean,
+  gym: {
+    id: string,
+    name: string,
+    description: string,
+    phone: string,
+    latitude: number,
+    longitude: number,
+    createdAt: string,
+    updatedAt: string,
+    active: boolean
+  }
+}
 
 export default function TableListCheckIns() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [checkIns, setCheckIns] = useState([]);
+  const [checkIns, setCheckIns] = useState<ICheckIns[]>([]);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 20;
 
@@ -44,8 +65,10 @@ export default function TableListCheckIns() {
         {checkIns.map(item => (
           <tr key={item.id}>
             <Td>{item.gym.name}</Td>
+            <Td>{item.gym.description}</Td>
             <Td>{item.gym.phone}</Td>
             <Td>{item.approved ? '✓' : 'X'}</Td>
+            <Td>{format(new Date(item.createdAt), 'dd/MM/yyyy HH:mm:ss')}</Td>
           </tr>
         ))}
       </tbody>
@@ -62,8 +85,10 @@ export default function TableListCheckIns() {
         <thead>
           <tr>
             <Th>Nome</Th>
+            <Th>Descrição</Th>
             <Th>Telefone</Th>
             <Th>Aprovado</Th>
+            <Th>Data</Th>
           </tr>
         </thead>
         {renderTable()}

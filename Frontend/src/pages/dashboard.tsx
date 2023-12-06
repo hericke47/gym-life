@@ -7,7 +7,7 @@ import axios from "axios";
 import GymCard from "../components/GymCard";
 import { calculateDistance } from "../utils/calculateDistance";
 import { ToastContainer } from "react-toastify";
-
+import { ClipLoader } from 'react-spinners'
 
 export interface IGym {
   id: string;
@@ -41,6 +41,7 @@ export default function Login() {
   const [userLatitude, setUserLatitude] = useState(0);
   const [userLongitude, setUserLongitude] = useState(0);
   const [userCheckInsToday, setUserCheckInsToday] = useState<ICheckIns[]>([])
+  const [loading, setLoading] = useState(true)
 
   async function getUserCheckInsToday() {
     await api.get(`/users/checkIns?onlyToday=true`).then(response => setUserCheckInsToday(response.data.checkIns))
@@ -70,6 +71,7 @@ export default function Login() {
 
           setNearbyGyms(orderedGymsByDistance)
           getUserCheckInsToday()
+          setLoading(false)
         })
       }
     })
@@ -99,7 +101,11 @@ export default function Login() {
 
         {nearbyGyms.length <= 0 && (
           <NotFoundGyms>
-            <h2>Nenhuma academia próxima encontrada</h2>
+            {loading ? (
+              <ClipLoader size={24} color='#6f7284' />
+            ): (
+              <h2>Nenhuma academia próxima encontrada</h2>
+            )}
           </NotFoundGyms>
         )}
       </Card>

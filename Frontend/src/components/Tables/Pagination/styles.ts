@@ -17,6 +17,7 @@ export const PaginationLink = styled.a<PaginationProps>`
   background-color: ${({ active, theme }) => (active ? theme.colors.primary : 'white')};
   border: 1px solid ${({ theme }) => theme.colors.primary};
   cursor: pointer;
+  border-radius: 16px;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary};
