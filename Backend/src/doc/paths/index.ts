@@ -5,7 +5,13 @@ import {
   todayCheckIns,
 } from "./users.swagger";
 import { authenticateUser, refreshUserToken } from "./sessions.swagger";
-import { createGym, searchGymsByName } from "./gyms";
+import {
+  createCheckIn,
+  createGym,
+  searchGymsByName,
+  approveCheckIn,
+  listCheckIns,
+} from "./gyms";
 
 export default {
   "/sessions": authenticateUser,
@@ -16,4 +22,7 @@ export default {
   "/users/todayCheckIn": todayCheckIns,
   "/gyms": createGym,
   "/gyms/search": searchGymsByName,
+  "/gyms/checkIn/{gymId}": createCheckIn,
+  "/gyms/checkIn/{checkInId}": approveCheckIn,
+  "/gyms/checkIns": listCheckIns,
 };
