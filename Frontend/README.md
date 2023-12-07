@@ -25,7 +25,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [NextJs](https://nextjs.org/)
-
+- [Styled Components](https://styled-components.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### Pré-requisitos
 

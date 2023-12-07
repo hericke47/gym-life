@@ -1,5 +1,5 @@
 {
-  "name": "omnilabs-education-web-next",
+  "name": "innova-web-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ramonak/react-progress-bar": "5.0.1",
     "axios": "0.21.1",
     "date-fns": "2.30.0",
     "next": "12",
@@ -24,7 +23,6 @@
     "react-spinners": "0.13.8",
     "react-switch": "7.0.0",
     "react-toastify": "7.0.4",
-    "react-use-websocket": "4.2.0",
     "styled-components": "5.3.1"
   },
   "devDependencies": {

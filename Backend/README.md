@@ -67,6 +67,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
   # Entrar no diretório
   ❯ cd Innova
+
+  # Entrar no diretório
+  ❯ cd Backend
 ```
 
 **Copiar arquivo com as variáveis de ambiente**
@@ -145,7 +148,7 @@ De maneira simplificada o Domain-Driven Design é uma maneira de construir softw
     - **@types**: *Contém todas as tipagens referentes às bibliotecas que não foram atendidas pela própria lib ou pela [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped). Também contém as tipagens que alteram as utilizadas pelas bibliotecas do código.*
     - **config**: *Contém os arquivos referentes a configuração, normalmente de libs (ex.: secret e data de validade do jwt), do código.*
     - **modules**: *Contém os arquivos referentes a cada módulo do código. É importante notar que nem sempre os módulos correspondem às entidades (modelos) do Banco de Dados, pois podem existir módulos que possuem mais de uma entidade (ex.: módulo Users possui as entidades User.ts e UserTokens.ts). Nesse caso, o módulo Users é todo o código que faz parte desse grupo.*
-        - **users**: *Contém os arquivos referentes ao módulo Doutores.*
+        - **users**: *Contém os arquivos referentes ao módulo de Usuários.*
             - **dtos**: *Contém os arquivos referentes aos DTOs (Data Transfer Object), que representam os objetos de dados que são passados como argumentos de uma função.*
             - **infra**: *Contém os arquivos referentes a parte de infraestrutura do código ou seja, a comunicação externa com bancos de dados ou outras APIs.*
                 - **typeorm**: *Contém os arquivos referentes ao TypeORM.*
