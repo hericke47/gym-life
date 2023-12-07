@@ -137,7 +137,7 @@ docker-compose down
 
 Para usar e testar os endpoints da API localmente, acesse: [Documentação Localhost](http://localhost:3003/api-docs).
 
-Sendo também possivel instalar o [Insomnia](https://insomnia.rest/download),e importar o arquivo: [Insomnia.json](https://github.com/hericke47/Innova/blob/develop/Insomnia_innova.json).
+Sendo também possivel instalar o [Insomnia](https://insomnia.rest/download),e importar o arquivo: [Insomnia.json](https://github.com/hericke47/Innova/blob/main/Backend/Insomnia_innova.json).
 
 ## Estrutura usando DDD (Domain Driven Design)
 
