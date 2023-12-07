@@ -46,8 +46,7 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
 
   async function handleCheckIn(gymId: string, userLatitude: number, userLongitude: number) {
     try {
-      await api.post(`/gyms/checkIn`, {
-        gymId: gymId,
+      await api.post(`/gyms/checkIn/${gymId}`, {
         latitude: userLatitude,
         longitude: userLongitude
       }).then(() => {

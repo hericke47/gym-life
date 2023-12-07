@@ -7,20 +7,18 @@ const CountDown = ({ initialTime }) => {
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      // Reduzir o tempo em 1 segundo
       setTime((prevTime) => {
         const newTime = prevTime - 1;
 
-        // Evitar valores negativos
+
         return newTime >= 0 ? newTime : 0;
       });
-    }, 1000); // Atualizar a cada 1000 milissegundos (1 segundo)
+    }, 1000);
 
-    // Limpar o intervalo quando o componente for desmontado
     return () => clearInterval(timerInterval);
-  }, []); // O segundo argumento vazio faz com que o useEffect só seja executado uma vez, sem depender de props ou state
+  }, []);
 
-  // Formatar o tempo para exibição
+
   const formatTime = () => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;

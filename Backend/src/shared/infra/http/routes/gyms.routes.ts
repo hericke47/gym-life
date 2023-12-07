@@ -38,12 +38,14 @@ gymsRouter.post(
 gymsRouter.get("/", ensureUserAuthenticated, nearbyGymsController.handle);
 gymsRouter.get("/search", ensureUserAuthenticated, searchGymsByName.handle);
 gymsRouter.post(
-  "/checkIn",
+  "/checkIn/:gymId",
   celebrate({
     [Segments.BODY]: {
-      gymId: Joi.string().uuid().required(),
       latitude: Joi.number().required(),
       longitude: Joi.number().required(),
+    },
+    [Segments.PARAMS]: {
+      gymId: Joi.string().uuid().required(),
     },
   }),
   ensureUserAuthenticated,
