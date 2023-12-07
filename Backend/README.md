@@ -63,10 +63,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ```bash
   # Clonar o repositório
-  ❯ https://github.com/hericke47/innova.git
+  ❯ git clone https://github.com/hericke47/innova.git
 
   # Entrar no diretório
-  ❯ cd innova
+  ❯ cd Innova
 ```
 
 **Copiar arquivo com as variáveis de ambiente**
