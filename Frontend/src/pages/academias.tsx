@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SideBar from "../components/Sidebar/SideBar";
 import { Card, Container, NotFoundGyms } from "../styles/pages/academias";
 import { withSSRAuth } from "../utils/withSSRAuth";
@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { ClipLoader } from 'react-spinners'
 import Pagination from "../components/Tables/Pagination";
 import { Input } from "../components/Form/Input";
+import { AuthContext } from "../contexts/AuthContext";
 
 export interface IGym {
   id: string;
@@ -40,8 +41,6 @@ export interface ICheckIns {
 
 export default function Academias() {
   const [gyms, setGyms] = useState<IGym[]>([])
-  const [userLatitude, setUserLatitude] = useState(0);
-  const [userLongitude, setUserLongitude] = useState(0);
   const [userCheckInsToday, setUserCheckInsToday] = useState<ICheckIns[]>([])
   const [loading, setLoading] = useState(true)
   const [input, setInput] = useState('')
@@ -49,6 +48,7 @@ export default function Academias() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const itemsPerPage = 9;
+  const { userLatitude, userLongitude } = useContext(AuthContext)
 
   async function getUserCheckInsToday() {
     await api.get(`/users/todayCheckIn`).then(response => setUserCheckInsToday(response.data))
@@ -57,34 +57,24 @@ export default function Academias() {
   useEffect(() => {
     const skip = (currentPage - 1) * itemsPerPage;
 
-    navigator.geolocation.getCurrentPosition(location => {
-      const userLatitude = location.coords.latitude
-      const userLongitude = location.coords.longitude
-
-      setUserLatitude(userLatitude)
-      setUserLongitude(userLongitude)
-
-      if(userLatitude && userLongitude) {
-        api.get(`/gyms/search?name=${input}`, {
-          params: { skip, take: itemsPerPage },
-        }).then(async response => {
-          const filteredData = await Promise.all(
-            response.data.gyms.map(async g => {
-              const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
-              return {
-                ...g,
-                address: result.address,
-                distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
-              }
-            })
-          )
-
-          setTotalItems(response.data.count);
-          setGyms(filteredData)
-          getUserCheckInsToday()
-          setLoading(false)
+    api.get(`/gyms/search?name=${input}`, {
+      params: { skip, take: itemsPerPage },
+    }).then(async response => {
+      const filteredData = await Promise.all(
+        response.data.gyms.map(async g => {
+          const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
+          return {
+            ...g,
+            address: result.address,
+            distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
+          }
         })
-      }
+      )
+
+      setTotalItems(response.data.count);
+      setGyms(filteredData)
+      getUserCheckInsToday()
+      setLoading(false)
     })
   }, [input, currentPage, itemsPerPage])
 
@@ -126,7 +116,7 @@ export default function Academias() {
             {loading ? (
               <ClipLoader size={24} color='#6f7284' />
             ): (
-              <h2>Nenhuma academia próxima encontrada</h2>
+              <h2>Nenhuma academia encontrada</h2>
             )}
           </NotFoundGyms>
         )}

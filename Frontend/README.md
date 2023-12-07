@@ -28,6 +28,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Styled Components](https://styled-components.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 
 ### Pré-requisitos
 

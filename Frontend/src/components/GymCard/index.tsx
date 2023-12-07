@@ -89,7 +89,13 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
       <ContentSection>
         <h3>{gym.name}</h3>
 
-        <p>{gym.address?.road}, {gym.address?.suburb}, {gym.address?.city}, {gym.address?.state}, {gym.address?.postcode}</p>
+        <p>
+          {gym.address?.road && ` ${gym.address?.road},`}
+          {gym.address?.suburb && ` ${gym.address?.suburb},`}
+          {gym.address?.city && ` ${gym.address?.city},`}
+          {gym.address?.state && ` ${gym.address?.state},`}
+          {gym.address?.postcode && ` ${gym.address?.postcode}`}
+        </p>
       </ContentSection>
 
       <Button

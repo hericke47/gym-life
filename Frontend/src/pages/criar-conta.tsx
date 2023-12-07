@@ -32,10 +32,10 @@ export default function CriarConta() {
       toast('Conta criada com sucesso', {
         position: "top-right",
         type: 'success',
-        autoClose: 3000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         onClose: () => {

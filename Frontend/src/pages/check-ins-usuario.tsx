@@ -6,8 +6,8 @@ import { Card, Container } from "../styles/pages/check-ins-usuario";
 import { withSSRAuth } from "../utils/withSSRAuth";
 import { ToastContainer } from "react-toastify";
 
-export default function CheckIns() {
-  const { user } = useContext(AuthContext)
+export default function UserCheckIns() {
+  const { user, userAddress } = useContext(AuthContext)
 
   return (
     <Container>
@@ -15,7 +15,15 @@ export default function CheckIns() {
 
       <Card>
         <header>
-          <h1>{user.name}</h1>
+          <h1>{user?.name}</h1>
+          <p>Email: {user?.email}</p>
+          <p>Endereço:
+           {userAddress?.road && ` ${userAddress?.road},`}
+           {userAddress?.suburb && ` ${userAddress?.suburb},`}
+           {userAddress?.city && ` ${userAddress?.city},`}
+           {userAddress?.state && ` ${userAddress?.state},`}
+           {userAddress?.postcode && ` ${userAddress?.postcode}`}
+          </p>
         </header>
         <TableListCheckInsByUser />
       </Card>

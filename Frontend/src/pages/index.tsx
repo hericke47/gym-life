@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Input } from "../components/Form/Input";
 import Button from "../components/Form/Button";
 import { useForm } from 'react-hook-form';
-import Router from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 
 import { AuthContext } from "../contexts/AuthContext";
 import Link from 'next/link'
@@ -21,9 +21,10 @@ interface ILoginFormData {
 }
 
 export default function Login() {
-  const { signIn } = useContext(AuthContext)
+  const { signIn, userLatitude, userLongitude } = useContext(AuthContext)
+  const router = useRouter();
 
-  const { register, handleSubmit, formState: {errors, isSubmitting} } = useForm();
+  const { register, handleSubmit, formState: {isSubmitting} } = useForm();
 
   async function handleLogin(data: ILoginFormData) {
     try {
@@ -32,18 +33,21 @@ export default function Login() {
         password: data.password
       })
 
-      toast('Login feito com sucesso', {
-        position: "top-right",
-        type: 'success',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
-      Router.push('/dashboard');
+      if(userLatitude && userLongitude) {
+        toast('Login feito com sucesso', {
+          position: "top-right",
+          type: 'success',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          onClose: () => {
+            router.push('/dashboard')
+          }
+        });
+      }
     } catch(err) {
       toast('Erro ao efetuar login', {
         position: "top-right",

@@ -22,8 +22,7 @@ export const Card = styled.div`
 
   header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     border-bottom: 1px solid #D3E2E5;
     margin-bottom: 40px;
     padding-bottom: 24px;
