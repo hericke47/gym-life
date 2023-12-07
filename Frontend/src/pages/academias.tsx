@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import { ClipLoader } from 'react-spinners'
 import Pagination from "../components/Tables/Pagination";
 import { Input } from "../components/Form/Input";
-import { AuthContext } from "../contexts/AuthContext";
+import { Address, AuthContext } from "../contexts/AuthContext";
 
 export interface IGym {
   id: string;
@@ -20,13 +20,7 @@ export interface IGym {
   latitude: string;
   longitude: string;
   active: string;
-  address: {
-    road: string;
-    suburb: string;
-    city: string;
-    state: string
-    postcode: string;
-  };
+  address: Address;
   distance: number;
 }
 
@@ -57,26 +51,28 @@ export default function Academias() {
   useEffect(() => {
     const skip = (currentPage - 1) * itemsPerPage;
 
-    api.get(`/gyms/search?name=${input}`, {
-      params: { skip, take: itemsPerPage },
-    }).then(async response => {
-      const filteredData = await Promise.all(
-        response.data.gyms.map(async g => {
-          const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
-          return {
-            ...g,
-            address: result.address,
-            distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
-          }
-        })
-      )
+    if(userLatitude && userLongitude) {
+      api.get(`/gyms/search?name=${input}`, {
+        params: { skip, take: itemsPerPage },
+      }).then(async response => {
+        const filteredData = await Promise.all(
+          response.data.gyms.map(async g => {
+            const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
+            return {
+              ...g,
+              address: result.address,
+              distance: calculateDistance(g.latitude, g.longitude,userLatitude, userLongitude).toFixed(2)
+            }
+          })
+        )
 
-      setTotalItems(response.data.count);
-      setGyms(filteredData)
-      getUserCheckInsToday()
-      setLoading(false)
-    })
-  }, [input, currentPage, itemsPerPage])
+        setTotalItems(response.data.count);
+        setGyms(filteredData)
+        getUserCheckInsToday()
+        setLoading(false)
+      })
+    }
+  }, [input, currentPage, itemsPerPage, userLatitude, userLongitude])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

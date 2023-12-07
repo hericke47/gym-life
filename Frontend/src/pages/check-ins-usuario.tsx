@@ -20,7 +20,7 @@ export default function UserCheckIns() {
           <p>Endereço:
            {userAddress?.road && ` ${userAddress?.road},`}
            {userAddress?.suburb && ` ${userAddress?.suburb},`}
-           {userAddress?.city && ` ${userAddress?.city},`}
+           {userAddress?.town && ` ${userAddress?.town},`}
            {userAddress?.state && ` ${userAddress?.state},`}
            {userAddress?.postcode && ` ${userAddress?.postcode}`}
           </p>

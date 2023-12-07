@@ -82,24 +82,26 @@ export default function TableListCheckInsByUser() {
   };
 
   return (
-    <TableContainer>
-      <StyledTable>
-        <thead>
-          <tr>
-            <Th>Academia</Th>
-            <Th>Descrição</Th>
-            <Th>Telefone</Th>
-            <Th>Aprovado</Th>
-            <Th>Data</Th>
-          </tr>
-        </thead>
-        {renderTable()}
-      </StyledTable>
+    <>
+      <TableContainer>
+        <StyledTable>
+          <thead>
+            <tr>
+              <Th>Academia</Th>
+              <Th>Descrição</Th>
+              <Th>Telefone</Th>
+              <Th>Aprovado</Th>
+              <Th>Data</Th>
+            </tr>
+          </thead>
+          {renderTable()}
+        </StyledTable>
+      </TableContainer>
       <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(totalItems / itemsPerPage)}
         onPageChange={handlePageChange}
       />
-    </TableContainer>
+    </>
   );
 };

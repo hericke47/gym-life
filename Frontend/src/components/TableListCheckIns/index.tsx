@@ -142,26 +142,28 @@ export default function TableListCheckIns() {
   };
 
   return (
-    <TableContainer>
-      <StyledTable>
-        <thead>
-          <tr>
-            <Th>Usuario</Th>
-            <Th>Academia</Th>
-            <Th>Descrição</Th>
-            <Th>Telefone</Th>
-            <Th>Aprovado</Th>
-            <Th>Data</Th>
-            <Th>Opções</Th>
-          </tr>
-        </thead>
-        {renderTable()}
-      </StyledTable>
+    <>
+      <TableContainer>
+        <StyledTable>
+          <thead>
+            <tr>
+              <Th>Usuario</Th>
+              <Th>Academia</Th>
+              <Th>Descrição</Th>
+              <Th>Telefone</Th>
+              <Th>Aprovado</Th>
+              <Th>Data</Th>
+              <Th>Opções</Th>
+            </tr>
+          </thead>
+          {renderTable()}
+        </StyledTable>
+      </TableContainer>
       <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(totalItems / itemsPerPage)}
         onPageChange={handlePageChange}
       />
-    </TableContainer>
+    </>
   );
 };

@@ -23,18 +23,19 @@ type AuthContextData = {
   signOut(): void;
   userLatitude: number;
   userLongitude: number;
-  userAddress: {
-    country: string;
-    country_code: string;
-    municipality: string;
-    postcode: string;
-    region: string;
-    road: string;
-    state: string;
-    suburb: string;
-    town: string;
-    city: string;
-  };
+  userAddress: Address
+}
+
+export type Address = {
+  country: string;
+  country_code: string;
+  municipality: string;
+  postcode: string;
+  region: string;
+  road: string;
+  state: string;
+  suburb: string;
+  town: string;
 }
 
 type AuthProviderProps = {

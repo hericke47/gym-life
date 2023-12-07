@@ -8,7 +8,7 @@ import GymCard from "../components/GymCard";
 import { calculateDistance } from "../utils/calculateDistance";
 import { ToastContainer } from "react-toastify";
 import { ClipLoader } from 'react-spinners'
-import { AuthContext } from "../contexts/AuthContext";
+import { Address, AuthContext } from "../contexts/AuthContext";
 
 export interface IGym {
   id: string;
@@ -18,13 +18,7 @@ export interface IGym {
   latitude: string;
   longitude: string;
   active: string;
-  address: {
-    road: string;
-    suburb: string;
-    city: string;
-    state: string
-    postcode: string;
-  };
+  address: Address;
   distance: number;
 }
 
@@ -48,23 +42,25 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    api.get(`/gyms?latitude=${userLatitude}&longitude=${userLongitude}`).then(async response => {
-      const filteredData = await Promise.all(
-        response.data.map(async g => {
-          const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
-          return {
-            ...g,
-            address: result.address,
-            distance: calculateDistance(g.latitude, g.longitude, userLatitude, userLongitude).toFixed(2)
-          }
-        })
-      )
-      const orderedGymsByDistance = filteredData.sort((a, b) => a.distance - b.distance)
+    if(userLatitude && userLongitude) {
+      api.get(`/gyms?latitude=${userLatitude}&longitude=${userLongitude}`).then(async response => {
+        const filteredData = await Promise.all(
+          response.data.map(async g => {
+            const result = await axios.get(`https://geocode.maps.co/reverse?lat=${g.latitude}&lon=${g.longitude}`).then(response => response.data)
+            return {
+              ...g,
+              address: result.address,
+              distance: calculateDistance(g.latitude, g.longitude, userLatitude, userLongitude).toFixed(2)
+            }
+          })
+        )
+        const orderedGymsByDistance = filteredData.sort((a, b) => a.distance - b.distance)
 
-      setNearbyGyms(orderedGymsByDistance)
-      getUserCheckInsToday()
-      setLoading(false)
-    })
+        setNearbyGyms(orderedGymsByDistance)
+        getUserCheckInsToday()
+        setLoading(false)
+      })
+    }
   }, [userLatitude, userLongitude])
 
   return (
