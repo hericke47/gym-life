@@ -66,10 +66,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
   ❯ git clone https://github.com/hericke47/innova.git
 
   # Entrar no diretório
-  ❯ cd Innova
-
-  # Entrar no diretório
-  ❯ cd Backend
+  ❯ cd Innova/Backend
 ```
 
 **Copiar arquivo com as variáveis de ambiente**
@@ -139,6 +136,8 @@ docker-compose down
 ## Documentação
 
 Para usar e testar os endpoints da API localmente, acesse: [Documentação Localhost](http://localhost:3003/api-docs).
+
+Sendo também possivel instalar o [Insomnia](https://insomnia.rest/download),e importar o arquivo: [Insomnia.json](https://github.com/hericke47/Innova/blob/develop/Insomnia_innova.json).
 
 ## Estrutura usando DDD (Domain Driven Design)
 
