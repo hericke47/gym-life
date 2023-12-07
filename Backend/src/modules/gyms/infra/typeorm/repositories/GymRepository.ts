@@ -20,7 +20,10 @@ class GymRepository implements IGymRepository {
         description,
         phone,
         latitude,
-        longitude
+        longitude,
+        active,
+        created_at as "createdAt",
+        updated_at as "updatedAt"
       FROM
         gyms
       WHERE

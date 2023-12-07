@@ -1,22 +1,22 @@
 import FakeGymRepository from "@modules/gyms/repositories/fakes/FakeGymRepository";
 import ICreateGymDTO from "@modules/gyms/dtos/ICreateGymDTO";
-import { SearchGymsByNameUseCase } from "./SearchGymsByNameUseCase";
 import { CreateGymUseCase } from "../CreateGym/CreateGymUseCase";
+import { NearbyGymsUseCase } from "./NearbyGymsUseCase";
 
 let fakeGymRepository: FakeGymRepository;
-let searchGymsByNameUsecase: SearchGymsByNameUseCase;
+let nearbyGyms: NearbyGymsUseCase;
 let createGym: CreateGymUseCase;
 
-describe("Search gyms by name", () => {
+describe("Search nearby gyms", () => {
   beforeEach(() => {
     fakeGymRepository = new FakeGymRepository();
 
-    searchGymsByNameUsecase = new SearchGymsByNameUseCase(fakeGymRepository);
-
     createGym = new CreateGymUseCase(fakeGymRepository);
+
+    nearbyGyms = new NearbyGymsUseCase(fakeGymRepository);
   });
 
-  it("should be able to find a gym by name", async () => {
+  it("should be able to search nearby gyms", async () => {
     const firstGym: ICreateGymDTO = {
       name: "example-gym",
       description: "example-gym-description",
@@ -26,25 +26,21 @@ describe("Search gyms by name", () => {
     };
 
     const secondGym: ICreateGymDTO = {
-      name: "second-gym",
+      name: "second-distant-gym",
       description: "second-gym-description",
       phone: "48 999999999",
-      latitude: -28.46754,
-      longitude: -49.036143,
+      latitude: -33.8688,
+      longitude: 151.2093,
     };
 
-    await createGym.execute(firstGym);
-    const secondGymCreated = await createGym.execute(secondGym);
+    const firstGymCreated = await createGym.execute(firstGym);
+    await createGym.execute(secondGym);
 
-    const gyms = await searchGymsByNameUsecase.execute({
-      name: "sec",
-      skip: 0,
-      take: 10,
+    const gyms = await nearbyGyms.execute({
+      latitude: -28.46754,
+      longitude: -49.036143,
     });
 
-    expect(gyms).toStrictEqual({
-      gyms: [secondGymCreated],
-      count: 1,
-    });
+    expect(gyms).toStrictEqual([firstGymCreated]);
   });
 });

@@ -8,7 +8,7 @@ import { v4 as uuidV4 } from "uuid";
 import { hash } from "bcrypt";
 
 let connection: Connection;
-describe("Search gyms by name", () => {
+describe("Search nearby gyms", () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
@@ -27,7 +27,7 @@ describe("Search gyms by name", () => {
     await connection.close();
   });
 
-  it("should be able to find a gym by name", async () => {
+  it("should be able to search nearby gyms", async () => {
     const auth = await request(app).post("/sessions").send({
       email: "userjhondoe@example.com",
       password: "example-password",
@@ -45,27 +45,26 @@ describe("Search gyms by name", () => {
       name: "second-gym",
       description: "second-gym-description",
       phone: "48 999999999",
-      latitude: -28.46754,
-      longitude: -49.036143,
+      latitude: -33.8688,
+      longitude: 151.2093,
     };
 
-    await request(app)
+    const firstGymCreated = await request(app)
       .post("/gyms")
       .send(firstGym)
       .set("Authorization", `bearer ${auth.body.token}`);
 
-    const secondGymCreated = await request(app)
+    await request(app)
       .post("/gyms")
       .send(secondGym)
       .set("Authorization", `bearer ${auth.body.token}`);
 
     const gyms = await request(app)
-      .get(`/gyms/search?name=sec&skip=0&take=10`)
+      .get(`/gyms?latitude=${-28.46754}&longitude=${-49.036143}`)
       .send(secondGym)
       .set("Authorization", `bearer ${auth.body.token}`);
 
     expect(gyms.status).toBe(200);
-    expect(gyms.body.count).toEqual(1);
-    expect(gyms.body.gyms).toStrictEqual([secondGymCreated.body]);
+    expect(gyms.body).toStrictEqual([firstGymCreated.body]);
   });
 });

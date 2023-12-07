@@ -2,6 +2,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import ICreateGymDTO from "@modules/gyms/dtos/ICreateGymDTO";
 import { Gym } from "@modules/gyms/infra/typeorm/entities/Gym";
+import { calculateDistance } from "@utils/calculateDistance";
 import IGymRepository from "../models/IGymRepository";
 
 class FakeGymRepository implements IGymRepository {
@@ -24,8 +25,21 @@ class FakeGymRepository implements IGymRepository {
     return gym;
   }
 
-  nearbyGyms(latitude: number, longitude: number): Promise<Gym[]> {
-    throw new Error("Method not implemented.");
+  public async nearbyGyms(latitude: number, longitude: number): Promise<Gym[]> {
+    const radius = 10; // Raio em quilômetros
+
+    const filteredGyms = this.gyms.filter((gym) => {
+      const distance = calculateDistance(
+        latitude,
+        longitude,
+        gym.latitude,
+        gym.longitude
+      );
+
+      return distance <= radius && gym.active;
+    });
+
+    return filteredGyms;
   }
 
   public async searchGymsByName(
