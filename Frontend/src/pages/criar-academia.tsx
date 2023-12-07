@@ -42,18 +42,18 @@ export default function CreateGym() {
           });
 
           reset()
+        } else {
+          toast('Endereço não encontrado', {
+            position: "top-right",
+            type: 'error',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
-
-        toast('Endereço não encontrado', {
-          position: "top-right",
-          type: 'error',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
       })
     } catch(err) {
       toast('Erro ao fazer cadastro de academia', {
