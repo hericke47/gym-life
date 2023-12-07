@@ -28,12 +28,21 @@ class FakeGymRepository implements IGymRepository {
     throw new Error("Method not implemented.");
   }
 
-  searchGymsByName(
+  public async searchGymsByName(
     name: string,
     skip: number,
     take: number
   ): Promise<{ gyms: Gym[]; count: number }> {
-    throw new Error("Method not implemented.");
+    const filteredGyms = this.gyms.filter(
+      (gym) => gym.name.toLowerCase().includes(name.toLowerCase()) && gym.active
+    );
+
+    const paginatedGyms = filteredGyms.slice(skip, skip + take);
+
+    return {
+      gyms: paginatedGyms,
+      count: filteredGyms.length,
+    };
   }
 
   public async findById(gymId: string): Promise<Gym | undefined> {
