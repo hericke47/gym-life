@@ -14,8 +14,7 @@ export default interface ICheckInRepository {
   findTodayByUserId(userId: string): Promise<CheckIn[]>;
   findByIntervalAndUserId(
     interval: string,
-    userId?: string,
-    checkInId?: string
+    checkInId: string
   ): Promise<CheckIn[]>;
   listCheckIns(
     take: number,

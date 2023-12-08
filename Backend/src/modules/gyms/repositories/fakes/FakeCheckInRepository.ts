@@ -71,8 +71,7 @@ class FakeCheckInRepository implements ICheckInRepository {
 
   public async findByIntervalAndUserId(
     interval: string,
-    userId?: string | undefined,
-    checkInId?: string | undefined
+    checkInId: string
   ): Promise<CheckIn[]> {
     const currentDate = new Date();
     const twentyMinutesAgo = new Date(currentDate.getTime() - 20 * 60 * 1000);
@@ -82,9 +81,7 @@ class FakeCheckInRepository implements ICheckInRepository {
       return (
         createdAt > twentyMinutesAgo &&
         createdAt < currentDate &&
-        (checkInId
-          ? checkIn.id === checkInId
-          : checkIn.userId === userId && !checkIn.approved)
+        checkIn.id === checkInId
       );
     });
 

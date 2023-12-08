@@ -25,7 +25,6 @@ class ApproveCheckInUseCase {
     const checkInApproveInterval =
       await this.checkInRepository.findByIntervalAndUserId(
         checkInConfig.approveInterval,
-        undefined,
         checkIn.id
       );
 

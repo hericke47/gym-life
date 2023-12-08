@@ -53,23 +53,13 @@ class CheckInRepository implements ICheckInRepository {
 
   public async findByIntervalAndUserId(
     interval: string,
-    userId?: string,
-    checkInId?: string
+    checkInId: string
   ): Promise<CheckIn[]> {
     const checkIns = await this.ormRepository.query(`
       select id, created_at from check_ins where
         check_ins.created_at > CURRENT_TIMESTAMP - INTERVAL '${interval}' and
         check_ins.created_at < CURRENT_TIMESTAMP and
-        ${
-          checkInId
-            ? `
-              check_ins.id = '${checkInId}'
-        `
-            : `
-              check_ins.user_id = '${userId}' and
-              check_ins.approved = false
-        `
-        }
+        check_ins.id = '${checkInId}'
     `);
 
     return checkIns;
