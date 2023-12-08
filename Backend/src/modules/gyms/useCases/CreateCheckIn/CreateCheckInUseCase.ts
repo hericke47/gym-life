@@ -4,7 +4,6 @@ import IGymRepository from "@modules/gyms/repositories/models/IGymRepository";
 import AppError from "@shared/errors/AppError";
 import { calculateDistance } from "@utils/calculateDistance";
 import { inject, injectable } from "tsyringe";
-import checkInConfig from "@config/checkIn";
 
 interface IRequest {
   userId: string;
@@ -39,16 +38,6 @@ class CreateCheckInUseCase {
 
     if (checkInLimit.length >= 1) {
       throw new AppError("check-in limit reached");
-    }
-
-    const checkInApproveInterval =
-      await this.checkInRepository.findByIntervalAndUserId(
-        checkInConfig.approveInterval,
-        userId
-      );
-
-    if (checkInApproveInterval.length >= 1) {
-      throw new AppError("check-in awaiting approval");
     }
 
     const distance = calculateDistance(

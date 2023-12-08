@@ -5,8 +5,8 @@ export default interface ICheckInRepository {
   create(data: ICreateCheckInDTO): Promise<CheckIn>;
   listByUserId(
     userId: string,
-    take?: number,
-    skip?: number
+    take: number,
+    skip: number
   ): Promise<{
     checkIns: CheckIn[];
     count: number;
