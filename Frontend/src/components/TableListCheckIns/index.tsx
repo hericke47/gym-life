@@ -96,7 +96,7 @@ export default function TableListCheckIns() {
     } catch(err) {
       toast('Erro ao aprovar check-in', {
         position: "top-right",
-        type: 'success',
+        type: 'error',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -130,7 +130,9 @@ export default function TableListCheckIns() {
             <Td>{checkIn.gym.phone}</Td>
             <Td>{checkIn.approved ? <FaCheck /> : <FiX strokeWidth={5} />}</Td>
             <Td>{format(new Date(checkIn.createdAt), 'dd/MM/yyyy HH:mm:ss')}</Td>
-            <Td><Button disabled={checkIn.approved ? checkIn.approved : checkIntervalCheckIn(checkIn)} onClick={() => handleApproveCheckIn(checkIn.id)}>Aprovar</Button></Td>
+            <Td><Button
+              disabled={checkIn.approved ? checkIn.approved : checkIntervalCheckIn(checkIn)}
+              onClick={() => handleApproveCheckIn(checkIn.id)}>Aprovar</Button></Td>
           </tr>
         ))}
       </tbody>
