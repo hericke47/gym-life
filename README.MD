@@ -10,6 +10,8 @@
 
 :rocket: Gympass - Solução que Oferece Acesso a Milhares de Academias.
 
+OBS: Para usar a plataforma ative a localização em seu navegador.
+
 ## Setup projeto
 
 - [Backend](https://github.com/hericke47/Innova/tree/main/Backend)
