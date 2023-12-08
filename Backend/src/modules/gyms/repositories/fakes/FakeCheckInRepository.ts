@@ -78,9 +78,10 @@ class FakeCheckInRepository implements ICheckInRepository {
 
     const filteredCheckIns = this.checkIns.filter((checkIn) => {
       const createdAt = new Date(checkIn.createdAt);
+
       return (
-        createdAt > twentyMinutesAgo &&
-        createdAt < currentDate &&
+        createdAt >= twentyMinutesAgo &&
+        createdAt <= currentDate &&
         checkIn.id === checkInId
       );
     });
@@ -111,6 +112,8 @@ class FakeCheckInRepository implements ICheckInRepository {
     const findIndex = this.checkIns.findIndex(
       (findCheckIn) => findCheckIn.id === checkIn.id
     );
+
+    checkIn.approved = true;
 
     this.checkIns[findIndex] = checkIn;
 
