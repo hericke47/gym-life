@@ -3,16 +3,16 @@
 </h1>
 
 <h4 align="center">
-	Gympass
+	Gymlife
 </h4>
 
 ## 💻 Sobre o projeto
 
-:rocket: Gympass - Solução que Oferece Acesso a Milhares de Academias.
+:rocket: Gymlife - Solução que Oferece Acesso a Milhares de Academias.
 
 OBS: Para usar a plataforma ative a localização em seu navegador.
 
 ## Setup projeto
 
-- [Backend](https://github.com/hericke47/Innova/tree/main/Backend)
-- [Frontend](https://github.com/hericke47/Innova/tree/main/Frontend)
+- [Backend](https://github.com/hericke47/gym-life/tree/main/Backend)
+- [Frontend](https://github.com/hericke47/gym-life/tree/main/Frontend)

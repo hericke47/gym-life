@@ -3,17 +3,17 @@
 </h1>
 
 <h4 align="center">
-	Gympass - Frontend
+	Gymlife - Frontend
 </h4>
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Innova" title="#Innova" src="./.github/login.png" width="400px">
+  <img alt="gym-life" title="#gym-life" src="./.github/login.png" width="400px">
 
-  <img alt="Innova" title="#Innova" src="./.github/buscar-academias.png" width="400px">
+  <img alt="gym-life" title="#gym-life" src="./.github/buscar-academias.png" width="400px">
 
-  <img alt="Innova" title="#Innova" src="./.github/cadastrar-academia.png" width="400px">
+  <img alt="gym-life" title="#gym-life" src="./.github/cadastrar-academia.png" width="400px">
 
-  <img alt="Innova" title="#Innova" src="./.github/check-ins.png" width="400px">
+  <img alt="gym-life" title="#gym-life" src="./.github/check-ins.png" width="400px">
 </p>
 
 
@@ -40,10 +40,10 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/hericke47/innova.git
+$ git clone https://github.com/hericke47/gym-life.git
 
 # Acesse a pasta do projeto no seu terminal/cmd
-$ cd Innova
+$ cd gym-life
 
 # Vá para a pasta da aplicação Front End
 $ cd Frontend

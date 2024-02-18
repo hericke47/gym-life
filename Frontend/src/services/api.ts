@@ -11,7 +11,7 @@ export function setupAPIClient(ctx = undefined) {
   const api = axios.create({
     baseURL: `http://localhost:3003`,
     headers: {
-      Authorization: `Bearer ${cookies['innova.token']}`
+      Authorization: `Bearer ${cookies['gym-life.token']}`
     }
   })
 
@@ -23,7 +23,7 @@ export function setupAPIClient(ctx = undefined) {
         // renovar token
         cookies = parseCookies(ctx);
 
-        const { 'innova.refresh_token': refreshToken } = cookies;
+        const { 'gym-life.refresh_token': refreshToken } = cookies;
         const originalConfig = error.config;
 
         if(!isRefreshing) {
@@ -33,12 +33,12 @@ export function setupAPIClient(ctx = undefined) {
             token: refreshToken
           }).then(response => {
             const { token } = response.data;
-            setCookie(ctx, 'innova.token', token, {
+            setCookie(ctx, 'gym-life.token', token, {
               maxAge: 60 * 60 * 24 * 30,
               path: '/'
             })
 
-            setCookie(ctx, 'innova.refresh_token', response.data.refreshToken, {
+            setCookie(ctx, 'gym-life.refresh_token', response.data.refreshToken, {
               maxAge: 60 * 60 * 24 * 30,
               path: '/'
             })

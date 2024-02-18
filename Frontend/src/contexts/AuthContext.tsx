@@ -45,8 +45,8 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextData)
 
 export function signOut(){
-  destroyCookie(undefined, 'innova.token')
-  destroyCookie(undefined, 'innova.refresh_token')
+  destroyCookie(undefined, 'gym-life.token')
+  destroyCookie(undefined, 'gym-life.refresh_token')
 
   Router.push('/');
 };
@@ -59,7 +59,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const isAuthenticated = !!user;
 
   useEffect(() =>{
-    const { 'innova.token': token } = parseCookies();
+    const { 'gym-life.token': token } = parseCookies();
 
     if(token) {
         api.get('/users/profile').then( response => {
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   },[])
 
   useEffect(() => {
-    const { 'innova.token': token } = parseCookies();
+    const { 'gym-life.token': token } = parseCookies();
 
     navigator.geolocation.watchPosition(location => {
       const userLatitude = location.coords.latitude
@@ -103,11 +103,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const { token, refreshToken, user: { name, isAdmin, active } } = response.data;
 
-    setCookie(undefined, 'innova.token', token, {
+    setCookie(undefined, 'gym-life.token', token, {
       maxAge: 60 * 60 * 24 * 30,
       path: '/'
     })
-    setCookie(undefined, 'innova.refresh_token', refreshToken, {
+    setCookie(undefined, 'gym-life.refresh_token', refreshToken, {
       maxAge: 60 * 60 * 24 * 30,
       path: '/'
     })

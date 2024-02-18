@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-  innova-postgres:
+  gym-life-postgres:
     image: postgres
-    container_name: innova-postgres
+    container_name: gym-life-postgres
     restart: always
     ports:
       - ${POSTGRES_PORT}:5432
@@ -14,11 +14,11 @@ services:
     volumes:
       - pgdata:/data/postgres
     networks:
-      - innova-network
+      - gym-life-network
 
-  innova-postgres-test:
+  gym-life-postgres-test:
     image: postgres
-    container_name: innova-postgres-test
+    container_name: gym-life-postgres-test
     restart: unless-stopped
     ports:
       - ${POSTGRES_PORT_TEST}:5432
@@ -29,13 +29,13 @@ services:
     volumes:
       - pgdata:/data/postgres/test
     networks:
-      - innova-network
+      - gym-life-network
 
-  innova-api:
+  gym-life-api:
     build: .
-    container_name: innova-api
+    container_name: gym-life-api
     environment:
-      - POSTGRES_HOST=innova-postgres
+      - POSTGRES_HOST=gym-life-postgres
     restart: always
     ports:
       - 3003:3003
@@ -44,12 +44,12 @@ services:
       - .:/usr/app
       - /usr/app/node_modules
     networks:
-      - innova-network
+      - gym-life-network
     depends_on:
-      - innova-postgres
+      - gym-life-postgres
 
 networks:
-  innova-network:
+  gym-life-network:
     driver: bridge
 
 volumes:

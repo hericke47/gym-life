@@ -82,7 +82,7 @@ export default function GymCard({gym, userLatitude, userLongitude, checkIns, set
   return (
     <Container>
       <LogoSection>
-        <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gympass" />
+        <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gymlife" />
         <p>{gym.distance} km</p>
       </LogoSection>
       <ContentSection>

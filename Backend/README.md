@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center">
-	Gympass - Backend
+	Gymlife - Backend
 </h4>
 
 ---
@@ -63,10 +63,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ```bash
   # Clonar o repositório
-  ❯ git clone https://github.com/hericke47/innova.git
+  ❯ git clone https://github.com/hericke47/gym-life.git
 
   # Entrar no diretório
-  ❯ cd Innova/Backend
+  ❯ cd gym-life/Backend
 ```
 
 **Copiar arquivo com as variáveis de ambiente**
@@ -90,7 +90,7 @@ docker-compose up -d
 **Executar as Migrations para criação do banco de dados**
 
 ```bash
-docker exec innova-api npm run typeorm:migration:run
+docker exec gym-life-api npm run typeorm:migration:run
 ```
 
 ou
@@ -104,7 +104,7 @@ npm run typeorm:migration:run
 Com a API funcionando, execute o comando abaixo para rodar os testes unitários e testes de integração
 
 ```bash
-docker exec innova-api npm run test
+docker exec gym-life-api npm run test
 ```
 
 ou
@@ -137,7 +137,7 @@ docker-compose down
 
 Para usar e testar os endpoints da API localmente, acesse: [Documentação Localhost](http://localhost:3003/api-docs).
 
-Sendo também possivel instalar o [Insomnia](https://insomnia.rest/download),e importar o arquivo: [Insomnia.json](https://github.com/hericke47/Innova/blob/main/Backend/Insomnia_innova.json).
+Sendo também possivel instalar o [Insomnia](https://insomnia.rest/download),e importar o arquivo: [Insomnia.json](https://github.com/hericke47/gym-life/blob/main/Backend/Insomnia_gym-life.json).
 
 ## Estrutura usando DDD (Domain Driven Design)
 

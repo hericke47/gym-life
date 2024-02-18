@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { AppSidebar, ContainerOptions, Options } from './styles';
 import Link from 'next/link';
 import { AuthContext } from '../../contexts/AuthContext';
-import gympassPNG from '../../public/assets/gympass.png'
+import GymlifePNG from '../../public/assets/Gymlife.png'
 
 export default function SideBar() {
   const { user, signOut } = useContext(AuthContext)
@@ -15,7 +15,7 @@ export default function SideBar() {
     <AppSidebar>
       <ContainerOptions>
         <Link href="/dashboard">
-          <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gympass" />
+          <img src="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI" alt="Gymlife" />
         </Link>
         <Options>
           <Link href="/academias">

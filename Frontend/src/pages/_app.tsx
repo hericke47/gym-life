@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider>
         <ThemeProvider theme={defaultTheme}>
           <Head>
-            <title>Innova</title>
+            <title>gym-life</title>
             <link rel="icon" href="https://play-lh.googleusercontent.com/eYpDhWypRwEmmSL7GPMiilwQEVEj2HISsUW_OflkCLUsdOHz5U9e3ePRu2flVuVKvaI"/>
           </Head>
           <Component {...pageProps} />
